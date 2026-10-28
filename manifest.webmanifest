@@ -2,7 +2,7 @@
   "name": "My Black Book",
   "short_name": "My Black Book",
   "description": "Remember the little things about the people in your life.",
-  "id": "./",
+  "id": "/my-black-book/",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
