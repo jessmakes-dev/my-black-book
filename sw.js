@@ -1,6 +1,6 @@
 /* My Black Book offline support. It shares jessmakes-dev.github.io with other apps, so it only ever tidies up its own 'mbb-' saved files.
     Your people and notes are never stored here: they live, locked, in the app's own storage on your phone. */
-const CACHE = 'mbb-v7';
+const CACHE = 'mbb-v8';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/note-96.png'];
 
 self.addEventListener('install', e => {
