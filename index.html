@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A private book for remembering the little things about the people in your life.">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>My Black Book</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#6A43DE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Baloo+2:wght@600&family=Lilita+One&family=Fraunces:opsz,wght@9..144,600&family=DM+Serif+Display&family=Caveat:wght@700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one phone-width column with a sticky top bar, soft cards only where grouping matters, and a floating add button */
+:root{
+  --bg:#F6F3FF; --surface:#FFFFFF; --surface-2:#EFEAFD; --ink:#1E1636; --muted:#686183; --line:#E1DAF3;
+  --accent:#6A43DE; --accent-ink:#FFFFFF; --accent-soft:#ECE5FF; --accent-text:#5532C4;
+  --danger:#B42F47; --danger-soft:#FBE4E8; --warn-soft:#FFF1D6; --warn-ink:#7A4E0C; --ok:#1C7F55;
+  --c1b:#ECE5FF; --c1f:#4A2FB0; --c2b:#FDE6DE; --c2f:#8A3A1E; --c3b:#DBF2EA; --c3f:#0F6250;
+  --c4b:#E1EDFB; --c4f:#1B4F86; --c5b:#FBEED4; --c5f:#7A4E0C; --c6b:#FBE4EE; --c6f:#8A2D55;
+  --shadow:0 1px 2px rgba(45,25,100,.06),0 8px 24px rgba(45,25,100,.07);
+  --scrim:rgba(20,12,40,.38);
+  --font-display:"Fredoka",ui-rounded,"Nunito",system-ui,sans-serif;
+  --font-name:"Fraunces",Georgia,serif; --name-adjust:none;
+  --font-body:"Nunito",ui-rounded,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r:18px; --r-sm:12px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15111F; --surface:#211B33; --surface-2:#2A2341; --ink:#F2EEFF; --muted:#ABA3C8; --line:#382F55;
+  --accent:#A78BFF; --accent-ink:#17102C; --accent-soft:#33295A; --accent-text:#C4B2FF;
+  --danger:#FF8FA2; --danger-soft:#4A1E2A; --warn-soft:#4A3510; --warn-ink:#F6D79C; --ok:#7FD9AE;
+  --c1b:#3A2E72; --c1f:#DCD3FF; --c2b:#5A2A1C; --c2f:#F8CDBE; --c3b:#134A3E; --c3f:#A8E6D3;
+  --c4b:#1A3A5E; --c4f:#BCD7F5; --c5b:#5A3D0E; --c5f:#F6D79C; --c6b:#5A2140; --c6f:#F5C1D7;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); --scrim:rgba(0,0,0,.55);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#15111F; --surface:#211B33; --surface-2:#2A2341; --ink:#F2EEFF; --muted:#ABA3C8; --line:#382F55;
+  --accent:#A78BFF; --accent-ink:#17102C; --accent-soft:#33295A; --accent-text:#C4B2FF;
+  --danger:#FF8FA2; --danger-soft:#4A1E2A; --warn-soft:#4A3510; --warn-ink:#F6D79C; --ok:#7FD9AE;
+  --c1b:#3A2E72; --c1f:#DCD3FF; --c2b:#5A2A1C; --c2f:#F8CDBE; --c3b:#134A3E; --c3f:#A8E6D3;
+  --c4b:#1A3A5E; --c4f:#BCD7F5; --c5b:#5A3D0E; --c5f:#F6D79C; --c6b:#5A2140; --c6f:#F5C1D7;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); --scrim:rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+html{background:var(--bg);font-synthesis-weight:none}
+/* name font choices: the title and people's names */
+:root[data-font="baloo"]{--font-name:"Baloo 2",ui-rounded,system-ui,sans-serif}
+:root[data-font="lilita"]{--font-name:"Lilita One",ui-rounded,system-ui,sans-serif}
+:root[data-font="fredoka"]{--font-name:"Fredoka",ui-rounded,"Nunito",system-ui,sans-serif}
+:root[data-font="dmserif"]{--font-name:"DM Serif Display",Georgia,serif}
+:root[data-font="caveat"]{--font-name:"Caveat","Segoe Print",cursive;--name-adjust:.56}
+.nm,.top h1,.hero h2,.gate h1{font-family:var(--font-name);font-size-adjust:var(--name-adjust)}
+.nm{font-weight:600}
+.fontopt{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--surface);border-radius:var(--r-sm);padding:10px 14px;cursor:pointer;text-align:left}
+.fontopt.on{border-color:var(--accent);background:var(--accent-soft)}
+.fontopt .smp{flex:1;min-width:0;font-size:22px;line-height:1.2;color:var(--ink)}
+.fontopt .fl{font-size:13px;color:var(--muted);font-weight:700;display:block;font-family:var(--font-body)}
+.fontopt .ok{color:var(--accent-text)}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.45;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.app{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 130px}
+svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);display:flex;align-items:center;gap:4px;padding-block:10px;margin-inline:-4px}
+.top h1{font-weight:600;font-size:22px;margin:0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-inline:4px}
+.brand{display:inline-flex;align-items:center;gap:8px}
+.iconbtn{width:44px;height:44px;border-radius:50%;border:0;background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;flex:none}
+.iconbtn:hover{background:var(--surface-2)}
+
+.search{display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:0 16px;color:var(--muted);margin-top:4px}
+.search:focus-within{border-color:var(--accent)}
+.search input{border:0;background:transparent;outline:none;font:inherit;font-size:16px;color:var(--ink);padding:12px 0;flex:1;min-width:0}
+
+.sec{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:26px 4px 10px}
+.sec h2{font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0}
+.sec small{color:var(--muted);font-size:13px}
+
+.card{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow)}
+.list{display:flex;flex-direction:column}
+.list>*+*{border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:12px;padding:12px 16px;min-height:56px;width:100%;background:transparent;border:0;text-align:left;cursor:pointer}
+.row:hover{background:var(--surface-2)}
+.list>.row:first-child{border-radius:var(--r) var(--r) 0 0}.list>.row:last-child{border-radius:0 0 var(--r) var(--r)}.list>.row:only-child{border-radius:var(--r)}
+.row .grow{flex:1;min-width:0}
+.row .t{font-weight:700;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .t.wrap{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.3}
+.row .s{color:var(--muted);font-size:14px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .when{font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap}
+.row .when.late{color:var(--danger)}
+.row .when.now{color:var(--accent-text)}
+.ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-text);flex:none}
+.ico.bday{background:var(--c6b);color:var(--c6f)}
+.tick{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;color:var(--muted);flex:none}
+.tick:hover{border-color:var(--ok);color:var(--ok)}
+.tick svg{width:18px;height:18px}
+.today-row{background:linear-gradient(0deg,var(--accent-soft),var(--accent-soft))}
+
+.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:15px;flex:none;overflow:hidden;font-family:var(--font-display)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar.xl{width:96px;height:96px;font-size:34px}
+.h1{background:var(--c1b);color:var(--c1f)}.h2{background:var(--c2b);color:var(--c2f)}.h3{background:var(--c3b);color:var(--c3f)}
+.h4{background:var(--c4b);color:var(--c4f)}.h5{background:var(--c5b);color:var(--c5f)}.h6{background:var(--c6b);color:var(--c6f)}
+.h0{background:var(--surface-2);color:var(--muted)}
+.sec .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:currentColor;margin-right:8px;vertical-align:1px}
+.chip .cnt{background:var(--accent-soft);color:var(--accent-text);border-radius:999px;font-size:12px;padding:0 7px;line-height:1.5}
+.chip.on .cnt{background:var(--accent-ink);color:var(--accent)}
+.teampick{border-top:1px dashed var(--line);padding-top:10px}
+
+.labels{display:flex;flex-wrap:wrap;gap:6px}
+.lab{border-radius:999px;padding:3px 11px;font-size:13px;font-weight:700;line-height:1.5}
+.tag-sample{border:1px dashed var(--muted);color:var(--muted);border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+
+.filters{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;margin-inline:-2px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 13px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer;min-height:38px;white-space:nowrap;transition:transform .12s}
+.chip:active{transform:scale(.96)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip svg{width:16px;height:16px;stroke-width:2.4}
+.chip.add{border-style:dashed;color:var(--accent-text);background:transparent}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.addwrap{display:inline-flex;gap:6px;align-items:center;flex:1 1 220px;min-width:0}
+.addwrap input{flex:1;min-width:0;padding:8px 12px;border-radius:999px}
+
+.backup{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:14px;margin-top:12px}
+.backup span{flex:1;min-width:0}
+.backup.stale{background:var(--warn-soft);color:var(--warn-ink)}
+.backup button{border:0;background:var(--surface);color:var(--accent-text);border-radius:999px;padding:7px 14px;font-weight:800;cursor:pointer;font-size:14px}
+
+.empty{text-align:center;padding:26px 20px;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-family:var(--font-display);font-weight:500;font-size:19px;margin-bottom:4px}
+
+.fab{position:fixed;right:max(20px,calc(env(safe-area-inset-right,0px) + 20px));bottom:calc(22px + env(safe-area-inset-bottom,0px));width:62px;height:62px;border-radius:22px;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;box-shadow:0 10px 26px rgba(90,50,200,.38);cursor:pointer;z-index:8;transition:transform .15s}
+.fab svg{width:28px;height:28px;stroke-width:2.4}
+.fab.open{transform:rotate(45deg)}
+.fabmenu{position:fixed;right:max(20px,calc(env(safe-area-inset-right,0px) + 20px));bottom:calc(96px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;align-items:flex-end;z-index:8}
+.fabmenu button{display:flex;align-items:center;gap:10px;background:var(--surface);border:0;border-radius:999px;padding:12px 18px 12px 14px;font-weight:800;box-shadow:var(--shadow);cursor:pointer;animation:rise .18s ease-out both}
+.fabmenu button:nth-child(2){animation-delay:.04s}
+.fabmenu svg{color:var(--accent-text)}
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:7;animation:fade .15s both}
+
+/* profile */
+.hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:6px 0 4px}
+.hero h2{font-weight:600;font-size:28px;margin:4px 0 0;line-height:1.15;text-wrap:balance}
+.hero .nick{color:var(--muted);margin-top:-4px}
+.linked{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.linkchip{display:inline-flex;align-items:center;gap:6px;border:0;background:var(--surface-2);color:var(--ink);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600;cursor:pointer}
+.linkchip svg{width:16px;height:16px;color:var(--accent-text)}
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:16px}
+.facts{padding:4px 16px}
+.fact{display:flex;gap:12px;align-items:flex-start;padding:12px 0}
+.fact+.fact{border-top:1px solid var(--line)}
+.fact svg{color:var(--accent-text);margin-top:1px}
+.fact .k{font-size:13px;color:var(--muted);font-weight:700;display:block}
+.fact .v{display:block;overflow-wrap:anywhere}
+.fact .v .chips{margin-top:6px;gap:6px}
+.mini{font-size:13px;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--surface-2);color:var(--ink)}
+.mindful{display:flex;gap:12px;background:var(--warn-soft);color:var(--warn-ink);border-radius:var(--r);padding:14px 16px;margin-top:12px}
+.mindful b{display:block;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.note{padding:14px 16px}
+.note+.note{border-top:1px solid var(--line)}
+.note .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-weight:700}
+.note p{margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.note .with{font-size:13px;color:var(--muted);margin-top:6px}
+.note .edit{margin-left:auto;border:0;background:transparent;color:var(--accent-text);font-weight:800;font-size:13px;cursor:pointer;padding:4px}
+.timeline{position:relative}
+
+/* forms */
+.form{display:flex;flex-direction:column;gap:14px}
+.group{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:14px}
+.group>h3{margin:0;font-family:var(--font-display);font-weight:500;font-size:18px;display:flex;align-items:center;gap:8px}
+.group>h3 svg{color:var(--accent-text)}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field>label,.lbl{font-size:14px;font-weight:800;color:var(--ink)}
+.hint{font-size:13px;color:var(--muted)}
+input[type=text],input[type=password],input[type=number],input[type=date],input[type=search]:not(.bare),select,textarea{width:100%;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:11px 12px;font:inherit;font-size:16px;outline:none;min-width:0}
+textarea{resize:vertical;min-height:110px;line-height:1.5}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.triple{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px}
+.rowin{display:flex;gap:8px;align-items:center}
+.rowin>input{flex:1}
+.rowin .yr{flex:0 0 120px}
+.subcard{border:1.5px solid var(--line);border-radius:var(--r-sm);padding:12px;display:flex;flex-direction:column;gap:10px}
+.subcard .rowin{align-items:flex-start}
+.rm{width:40px;height:40px;border-radius:50%;border:0;background:var(--surface-2);color:var(--muted);display:grid;place-items:center;cursor:pointer;flex:none}
+.rm svg{width:18px;height:18px}
+.addrow{align-self:flex-start;border:1.5px dashed var(--line);background:transparent;color:var(--accent-text);border-radius:999px;padding:8px 14px;font-weight:800;display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+.addrow svg{width:18px;height:18px}
+.err{color:var(--danger);font-size:14px;font-weight:700}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:15px;cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--accent);flex:none;margin-top:1px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:14px 20px;font-weight:800;font-size:16px;cursor:pointer;background:var(--accent);color:var(--accent-ink);min-height:50px;transition:transform .12s}
+.btn:active{transform:scale(.98)}
+.btn[disabled]{opacity:.65;cursor:progress}
+.btn.soft{background:var(--accent-soft);color:var(--accent-text)}
+.btn.ghost{background:transparent;color:var(--accent-text);border:1.5px solid var(--line)}
+.btn.danger{background:var(--danger-soft);color:var(--danger)}
+.btn.block{width:100%}
+.btn svg{width:20px;height:20px}
+.savebar{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:4;margin-top:6px}
+.savebar .btn{width:100%;box-shadow:0 10px 26px rgba(90,50,200,.3)}
+.confirm{background:var(--danger-soft);color:var(--danger);border-radius:var(--r-sm);padding:14px;display:flex;flex-direction:column;gap:10px;font-weight:700}
+.confirm .btns{display:flex;gap:8px;flex-wrap:wrap}
+.confirm .btn{flex:1;min-height:44px;padding:10px 14px}
+
+/* lock and start */
+.gate{min-height:calc(100vh - 40px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding-block:24px;max-width:400px;margin:0 auto}
+@supports (height:100dvh){.gate{min-height:calc(100dvh - 40px)}}
+.gate h1{font-weight:600;font-size:34px;margin:6px 0 0;letter-spacing:-.01em}
+.gate p{margin:0;color:var(--muted);max-width:32ch}
+.gate .stack{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:10px}
+.pin{text-align:center;font-size:30px !important;letter-spacing:.5em;padding:14px !important;font-family:var(--font-display)}
+.linkbtn{border:0;background:transparent;color:var(--accent-text);font-weight:800;cursor:pointer;padding:8px;font-size:15px}
+.logo{filter:drop-shadow(0 10px 20px rgba(90,50,200,.25))}
+.ro-banner{display:flex;gap:10px;align-items:center;background:var(--accent-soft);color:var(--accent-text);border-radius:var(--r-sm);padding:10px 14px;font-size:14px;font-weight:700;margin-bottom:6px}
+.ro-pill{font-size:12px;font-weight:800;background:var(--accent-soft);color:var(--accent-text);border-radius:999px;padding:3px 10px}
+.prose{color:var(--muted);font-size:14px;margin:0}
+.kv{display:flex;justify-content:space-between;gap:12px;font-size:15px}
+.kv b{font-weight:800}
+
+#toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:999px;font-weight:800;font-size:15px;opacity:0;pointer-events:none;z-index:60;max-width:calc(100vw - 40px);text-align:center;transition:opacity .2s}
+#toast.show{opacity:1;animation:pop .45s cubic-bezier(.3,1.5,.5,1) both}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.confetti i{position:absolute;top:-14px;width:8px;height:13px;border-radius:2px;animation:fall linear forwards}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid currentColor;border-right-color:transparent;animation:rot .7s linear infinite}
+@keyframes fall{to{transform:translate(var(--x),105vh) rotate(var(--r))}}
+@keyframes pop{0%{transform:translate(-50%,24px) scale(.9);opacity:0}60%{transform:translate(-50%,-6px) scale(1.04);opacity:1}100%{transform:translate(-50%,0) scale(1);opacity:1}}
+@keyframes rise{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+@keyframes fade{from{opacity:0}}
+@keyframes rot{to{transform:rotate(360deg)}}
+.dots{display:flex;gap:14px;justify-content:center;align-items:center;min-height:22px;margin-top:4px}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--accent);display:block;transition:background-color .1s,transform .1s}
+.dots i.f{background:var(--accent);transform:scale(1.08)}
+.dots.shake{animation:shake .4s}
+.dots.checking i{animation:blink 1s ease-in-out infinite}
+.dots.checking i:nth-child(2){animation-delay:.12s}.dots.checking i:nth-child(3){animation-delay:.24s}.dots.checking i:nth-child(4){animation-delay:.36s}.dots.checking i:nth-child(5){animation-delay:.48s}.dots.checking i:nth-child(6){animation-delay:.6s}
+.pad{display:grid;grid-template-columns:repeat(3,72px);gap:14px 28px;justify-content:center;margin-top:6px}
+.key{width:72px;height:72px;border-radius:50%;border:0;background:var(--surface);box-shadow:var(--shadow);font-family:var(--font-display);font-size:28px;font-weight:500;color:var(--ink);cursor:pointer;touch-action:manipulation;display:grid;place-items:center;user-select:none;-webkit-user-select:none;transition:transform .08s,background-color .08s}
+.key:active{background:var(--accent-soft);transform:scale(.94)}
+.key.fn{background:transparent;box-shadow:none;color:var(--muted)}
+.key.fn.ok{color:var(--accent-text)}
+.key svg{width:26px;height:26px}
+.gate.locking{gap:10px}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+@keyframes blink{50%{opacity:.35}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}#toast.show{transform:translate(-50%,0)}}
+@media (max-width:380px){.iconbtn{width:40px;height:40px}.top{gap:2px}.triple{grid-template-columns:1fr 1fr}.triple>:last-child{grid-column:1/-1}.rowin .yr{flex-basis:96px}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+const ITER = 600000;
+const MAX_TRIES = 5;
+const IN_FRAME = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const app = document.getElementById('app');
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+const clone = o => JSON.parse(JSON.stringify(o));
+
+/* ---------- icons ---------- */
+const P = {
+  search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  lock:'<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/>',
+  settings:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>',
+  cake:'<path d="M4 21h16M5 21v-7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7M5 16c2.3 1.5 4.7-1.5 7 0s4.7-1.5 7 0M12 12V9"/><path d="M12 4.5c.8.9 1 1.8 0 2.6-1-.8-.8-1.7 0-2.6z"/>',
+  heart:'<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/>',
+  kid:'<circle cx="12" cy="12" r="8.5"/><path d="M9 14.5c1.6 1.4 4.4 1.4 6 0M9.2 10h.01M14.8 10h.01"/>',
+  paw:'<circle cx="7" cy="10" r="1.6"/><circle cx="10.5" cy="6.5" r="1.6"/><circle cx="13.5" cy="6.5" r="1.6"/><circle cx="17" cy="10" r="1.6"/><path d="M12 12c-3 0-5 3.2-5 5.3 0 1.6 1.4 2.2 2.5 2.2s1.6-.6 2.5-.6 1.4.6 2.5.6 2.5-.6 2.5-2.2c0-2.1-2-5.3-5-5.3z"/>',
+  coffee:'<path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9zM16 10.5h1.5a2.5 2.5 0 0 1 0 5H16M9 3.5v2.5M12.5 3.5v2.5"/>',
+  star:'<path d="M12 3.5l2.5 5.3 5.8.7-4.3 4 1.1 5.7L12 16.4l-5.1 2.8 1.1-5.7-4.3-4 5.8-.7z"/>',
+  calendar:'<rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M16 3v4M8 3v4M4 10.5h16"/>',
+  note:'<path d="M4 5h16v11H9.5L5 20V5z" /><path d="M8.5 9.5h7M8.5 12.5h4"/>',
+  edit:'<path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/>',
+  trash:'<path d="M4 7h16M10 11v6M14 11v6M5.5 7l1 13h11l1-13M9 7V4h6v3"/>',
+  link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  work:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h3A2.5 2.5 0 0 1 16 5.5V7M3 13h18"/>',
+  users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/>',
+  x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  upload:'<path d="M7 18.5a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 10a4 4 0 0 1-.5 8.5M12 12v8M9 15l3-3 3 3"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6h.01"/>',
+  gift:'<rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M3 7.5h18V11H3zM12 7.5V20M12 7.5c-1.5-4-6-3.5-5-.5M12 7.5c1.5-4 6-3.5 5-.5"/>',
+  trophy:'<path d="M8 4h8v5a4 4 0 0 1-8 0V4zM8 6H5a3 3 0 0 0 3.4 4M16 6h3a3 3 0 0 1-3.4 4M12 13v4M8 20h8M10 17h4"/>',
+  food:'<path d="M7 3v7a2 2 0 0 0 2 2v9M11 3v7M17.5 3c-2 0-3 3-3 6.5 0 2 1 3 3 3V21"/>',
+  clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  pin:'<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
+  tag:'<path d="M3.5 12.5V4.5h8l9 9-8 8z"/><circle cx="8" cy="9" r="1.3"/>',
+  sparkle:'<path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8z"/><path d="M18.5 16v4M16.5 18h4"/>',
+  family:'<circle cx="8" cy="7" r="2.8"/><circle cx="16.5" cy="9" r="2.2"/><path d="M3 20v-2.5A5 5 0 0 1 8 12.5a5 5 0 0 1 5 5V20M13.5 20v-2a3.5 3.5 0 0 1 7 0v2"/>',
+  chat:'<path d="M4 5h16v11H9.5L5 20V5z"/>',
+  shield:'<path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/>',
+  key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l8.5-8.5M16 7l2.5 2.5M14 9l2 2"/>',
+  list:'<path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>',
+  file:'<path d="M6 3h8l5 5v13H6zM14 3v5h5"/>',
+  camera:'<path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  book:'<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"/>'
+};
+const ic = (n, cls = '') => `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${P[n] || ''}</svg>`;
+const logo = (s = 120) => `<svg class="logo" width="${s}" height="${s}" viewBox="0 0 64 64" aria-hidden="true"><rect x="15" y="7" width="38" height="49" rx="5" fill="#E9E1FF"/><rect x="10" y="5" width="40" height="50" rx="6" fill="#1F1A2E" stroke="#3A3152" stroke-width="1"/><rect x="10" y="5" width="7" height="50" rx="3.5" fill="#2E2644"/><rect x="23" y="17" width="20" height="5" rx="2.5" fill="#8B66FF"/><rect x="26" y="25" width="14" height="2.6" rx="1.3" fill="#4A4066"/><path d="M36 48h7v13l-3.5-3.2L36 61z" fill="#8B66FF"/></svg>`;
+
+/* ---------- dates ---------- */
+const pad = n => String(n).padStart(2, '0');
+const isoOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const parseIso = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const todayISO = () => isoOf(new Date());
+const addDays = (s, n) => { const d = parseIso(s); d.setDate(d.getDate() + n); return isoOf(d); };
+const addMonths = (s, n) => { const d = parseIso(s); const day = d.getDate(); d.setDate(1); d.setMonth(d.getMonth() + n); const last = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate(); d.setDate(Math.min(day, last)); return isoOf(d); };
+const daysFromToday = s => Math.round((parseIso(s) - parseIso(todayISO())) / 864e5);
+const isLeap = y => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+function fmtDate(s) { const d = parseIso(s); const y = d.getFullYear(); return `${d.getDate()} ${MONTHS[d.getMonth()]}${y !== new Date().getFullYear() ? ' ' + y : ''}`; }
+function relDay(n) { if (n === 0) return 'Today'; if (n === 1) return 'Tomorrow'; if (n === -1) return 'Yesterday'; if (n < 0) return `${-n} days ago`; if (n < 14) return `In ${n} days`; return `In ${Math.round(n / 7)} weeks`; }
+function agoText(isoStamp) { if (!isoStamp) return 'never'; const n = -daysFromToday(isoOf(new Date(isoStamp))); if (n <= 0) return 'today'; if (n === 1) return 'yesterday'; if (n < 14) return `${n} days ago`; return `${Math.round(n / 7)} weeks ago`; }
+function nextBday(b) {
+  if (!b || !b.d || !b.m) return null;
+  const t0 = parseIso(todayISO()); let y = t0.getFullYear();
+  const mk = yy => new Date(yy, b.m - 1, (b.m === 2 && b.d === 29 && !isLeap(yy)) ? 28 : b.d);
+  let dt = mk(y); if (dt < t0) { y++; dt = mk(y); }
+  return { iso: isoOf(dt), days: Math.round((dt - t0) / 864e5), turning: b.y ? y - b.y : null };
+}
+const bdayText = b => `${b.d} ${MONTHS_FULL[b.m - 1]}${b.y ? ' ' + b.y : ''}`;
+const firstName = n => String(n || '').trim().split(/\s+/)[0] || n;
+const kidAge = yr => yr ? Math.max(0, new Date().getFullYear() - Number(yr)) : null;
+
+/* ---------- storage ---------- */
+const store = (() => {
+  const mem = {}; let dbp = null;
+  function open() {
+    if (dbp) return dbp;
+    dbp = new Promise((res, rej) => { try { const r = indexedDB.open('my-black-book', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e) { rej(e); } });
+    return dbp;
+  }
+  async function tx(mode, fn) { const db = await open(); return new Promise((res, rej) => { const t = db.transaction('kv', mode); const req = fn(t.objectStore('kv')); t.oncomplete = () => res(req && req.result); t.onerror = () => rej(t.error); t.onabort = () => rej(t.error); }); }
+  return {
+    async get(k) { try { return await tx('readonly', s => s.get(k)); } catch (e) { return mem[k]; } },
+    async set(k, v) { try { await tx('readwrite', s => s.put(v, k)); } catch (e) { mem[k] = v; } },
+    async del(k) { try { await tx('readwrite', s => s.delete(k)); } catch (e) { delete mem[k]; } }
+  };
+})();
+const prefGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const prefSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+
+/* ---------- encryption ---------- */
+const te = new TextEncoder(), td = new TextDecoder();
+const rand = n => crypto.getRandomValues(new Uint8Array(n));
+function b64(u8) { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+function unb64(s) { const bin = atob(s); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+async function kekFrom(secret, salt, iter) {
+  const base = await crypto.subtle.importKey('raw', te.encode(secret), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: iter, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+async function wrapKey(raw, secret) {
+  const salt = rand(16), iv = rand(12);
+  const kek = await kekFrom(secret, salt, ITER);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, kek, raw));
+  return { salt: b64(salt), iv: b64(iv), ct: b64(ct), iter: ITER };
+}
+async function unwrapKey(w, secret) {
+  const kek = await kekFrom(secret, unb64(w.salt), w.iter || ITER);
+  return new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(w.iv) }, kek, unb64(w.ct)));
+}
+const importDataKey = raw => crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['encrypt', 'decrypt']);
+async function encryptData(key, obj) { const iv = rand(12); const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, te.encode(JSON.stringify(obj)))); return { iv: b64(iv), ct: b64(ct) }; }
+async function decryptData(key, blob) { const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(blob.iv) }, key, unb64(blob.ct)); return JSON.parse(td.decode(pt)); }
+
+const WORDS = 'acorn amber anchor apple apron arrow aspen autumn badger bagel bamboo banjo barley basil beacon beetle berry biscuit blanket blossom bonfire breeze brick bubble cabin cactus camel candle canyon caramel carrot cedar cherry chestnut cinnamon cloud clover cobalt comet copper coral cotton cricket crystal cupcake daisy dawn delta denim dolphin dragon drift dune eagle echo ember emerald falcon feather fern fiddle firefly flannel forest fossil fox galaxy garden garnet ginger glacier globe goose granite grape gravy harbor harvest hazel hedge heron honey horizon iceberg indigo island ivory jasmine jelly jungle kayak kettle kiwi koala ladder lagoon lantern lemon lily lime llama lotus maple marble meadow melon meteor mint mirror moose mossy mountain muffin nectar nest noodle nutmeg oasis ocean olive onion orbit otter owl paddle panda papaya parrot peach pebble pepper pickle pigeon pine planet plum pocket pony poppy prism pumpkin quartz quill rabbit radish rain raven reef ribbon river robin rocket rose ruby saddle saffron sail salmon satin sequoia shadow shell sierra silver sketch sky sparrow spruce squash star stone storm sugar summit sunset swan tango teapot thistle thunder tiger toffee topaz tulip tundra turtle velvet violet waffle walnut wave willow window winter wren yarrow zebra zephyr'.split(' ');
+function suggestPhrase() { const r = crypto.getRandomValues(new Uint32Array(5)); const w = [0, 1, 2, 3].map(i => WORDS[r[i] % WORDS.length]); return `${w.join('-')}-${10 + (r[4] % 90)}`; }
+
+/* ---------- data ---------- */
+const DEFAULT_LISTS = {
+  labels: ['Work', 'Family', 'Friend', 'Industry', 'Local'],
+  connectionHow: ['Partner of', 'Child of', 'Parent of', 'Sibling of', 'Friend of', 'Colleague of'],
+  pets: ['Dog', 'Cat', 'Bird', 'Fish', 'Rabbit'],
+  interests: ['Running', 'Pilates', 'Gym', 'Reading', 'Cooking', 'Travel', 'Hiking', 'Golf', 'Tennis', 'Music', 'Gardening', 'Gaming', 'Wine', 'Photography'],
+  teams_AFL: ['Adelaide', 'Brisbane Lions', 'Carlton', 'Collingwood', 'Essendon', 'Fremantle', 'Geelong', 'Gold Coast', 'GWS', 'Hawthorn', 'Melbourne', 'North Melbourne', 'Port Adelaide', 'Richmond', 'St Kilda', 'Sydney', 'West Coast', 'Western Bulldogs'],
+  teams_NRL: ['Brisbane Broncos', 'Canberra Raiders', 'Canterbury Bulldogs', 'Cronulla Sharks', 'Dolphins', 'Gold Coast Titans', 'Manly Sea Eagles', 'Melbourne Storm', 'Newcastle Knights', 'North Queensland Cowboys', 'Parramatta Eels', 'Penrith Panthers', 'South Sydney Rabbitohs', 'St George Illawarra Dragons', 'Sydney Roosters', 'Warriors', 'Wests Tigers'],
+  teams_Cricket: ['Adelaide Strikers', 'Brisbane Heat', 'Hobart Hurricanes', 'Melbourne Renegades', 'Melbourne Stars', 'Perth Scorchers', 'Sydney Sixers', 'Sydney Thunder'],
+  teams_Soccer: ['Adelaide United', 'Auckland FC', 'Brisbane Roar', 'Central Coast Mariners', 'Macarthur FC', 'Melbourne City', 'Melbourne Victory', 'Newcastle Jets', 'Perth Glory', 'Sydney FC', 'Wellington Phoenix', 'Western Sydney Wanderers'],
+  teams_Basketball: ['Adelaide 36ers', 'Brisbane Bullets', 'Cairns Taipans', 'Illawarra Hawks', 'Melbourne United', 'New Zealand Breakers', 'Perth Wildcats', 'South East Melbourne Phoenix', 'Sydney Kings', 'Tasmania JackJumpers'],
+  teams_Netball: ['Adelaide Thunderbirds', 'GIANTS Netball', 'Melbourne Mavericks', 'Melbourne Vixens', 'NSW Swifts', 'Queensland Firebirds', 'Sunshine Coast Lightning', 'West Coast Fever'],
+  teams_Other: [],
+  coffee: ['Flat white', 'Latte', 'Cappuccino', 'Long black', 'Espresso', 'Oat latte', 'Tea', 'No coffee'],
+  dietary: ['Vegetarian', 'Vegan', 'Gluten-free', 'Dairy-free', 'No alcohol', 'Halal', 'Kosher', 'Pescatarian'],
+  companies: [],
+  relType: ['Colleague', 'Client', 'Partner', 'Supplier'],
+  seniority: ['Exec', 'Manager', 'Peer', 'My team'],
+  contact: ['Teams', 'Slack', 'Email', 'Phone', 'In person'],
+  workStyle: ['Detail-oriented', 'Big picture', 'Prefers a quick chat', 'Prefers it in writing', 'Likes data', 'Likes context first'],
+  familyRelation: ['Mum', 'Dad', 'Sibling', 'Cousin', 'Aunt', 'Uncle', 'Grandparent', 'In-law', 'Niece', 'Nephew', "Cousin's partner", "Partner's family"],
+  whereMet: ['Conference', 'Industry event', 'LinkedIn', 'Introduction', 'Meetup', 'Previous job'],
+  localWhere: ['Gym', 'Hairdresser', 'Cafe', 'Neighbour', 'Sports club', 'Doctor'],
+  localOften: ['Weekly', 'Fortnightly', 'Monthly', 'Every 6 weeks', 'Now and then'],
+  places: ['Coffee', 'Meeting', 'Call', 'Event', 'Family thing', 'Dinner', 'Message', 'Appointment']
+};
+const LIST_NAMES = { labels: 'Labels', connectionHow: 'Linked as', pets: 'Pets', interests: 'Interests', teams_AFL: 'AFL teams', teams_NRL: 'NRL teams', teams_Cricket: 'Cricket teams', teams_Soccer: 'Soccer teams', teams_Basketball: 'Basketball teams', teams_Netball: 'Netball teams', teams_Other: 'Other teams', coffee: 'Coffee orders', dietary: 'Dietary', companies: 'Companies', relType: 'Work relationship', seniority: 'Seniority', contact: 'Preferred contact', workStyle: 'Working style', familyRelation: 'Family relation', whereMet: 'Where you met', localWhere: 'Where you see them', localOften: 'How often', places: 'Where you spoke' };
+const SPORTS = ['AFL', 'NRL', 'Cricket', 'Soccer', 'Basketball', 'Netball', 'Other'];
+const teamList = p => SPORTS.flatMap(sp => ((p.teams || {})[sp] || []).map(t => ({ sport: sp, team: t })));
+const blankPerson = () => ({ id: '', name: '', nickname: '', labels: [], birthday: null, photo: null, howMet: '', connections: [], partner: '', kids: [], pets: [], interests: [], teams: {}, coffee: { choice: '', note: '' }, dietary: { choices: [], note: '' }, favourites: '', lifeUpdates: [], mindful: '', work: { company: '', role: '', team: '', relType: '', seniority: '', contact: '', projects: '', style: [], styleNote: '' }, family: { relation: '' }, industry: { whereMet: '', workingOn: '', help: '' }, local: { where: '', often: '' }, sample: false, created: 0, updated: 0 });
+
+function newData(withSample) {
+  const d = { v: 1, people: [], notes: [], followups: [], lists: clone(DEFAULT_LISTS), settings: { autoLock: 5, lastBackup: null } };
+  if (withSample) addSample(d);
+  return d;
+}
+function addSample(d) {
+  const t = todayISO(), y = new Date().getFullYear(), now = Date.now();
+  const inDays = n => parseIso(addDays(t, n));
+  const bd = (dt, yr) => ({ d: dt.getDate(), m: dt.getMonth() + 1, y: yr || null });
+  let order = 0;
+  const mk = o => { const p = Object.assign(blankPerson(), o); p.id = uid(); p.sample = true; p.created = now; p.updated = now - (order++) * 3600e3; return p; };
+  const merge = (a, b) => Object.assign(blankPerson()[a] && typeof blankPerson()[a] === 'object' && !Array.isArray(blankPerson()[a]) ? blankPerson()[a] : {}, b);
+  const priya = mk({ name: 'Priya Kumar', nickname: 'Pri', labels: ['Work', 'Friend'], birthday: { d: 14, m: 3, y: 1990 }, howMet: 'Started at the company on the same day', partner: 'Dev', kids: [{ name: 'Max', year: y - 6 }, { name: 'Ava', year: y - 3 }], interests: ['Pilates', 'Cooking', 'Hiking'], coffee: { choice: 'Oat latte', note: 'Extra hot' }, lifeUpdates: [{ date: addDays(t, -7), text: 'Training for a 10k in December' }], work: merge('work', { company: 'Kestrel Software', role: 'Product Manager', team: 'Platform', relType: 'Colleague', seniority: 'Peer', contact: 'Teams', projects: 'Website rebuild', style: ['Likes data'] }) });
+  const lucy = mk({ name: 'Lucy Martin', labels: ['Family'], birthday: bd(inDays(9), y - 31), interests: ['Travel', 'Photography'], dietary: { choices: ['Vegetarian'], note: '' }, family: { relation: 'Cousin' }, lifeUpdates: [{ date: addDays(t, -21), text: 'Just moved to Fitzroy' }] });
+  const josh = mk({ name: 'Josh Reid', labels: ['Family'], connections: [{ id: lucy.id, how: 'Partner of' }], interests: ['Surfing'], teams: { AFL: ['Geelong'], Cricket: ['Melbourne Renegades'] }, family: { relation: "Cousin's partner" }, favourites: 'Craft beer, anything on a barbecue' });
+  const sam = mk({ name: 'Sam Ellis', labels: ['Friend'], birthday: bd(new Date(), y - 33), howMet: 'Uni housemates', pets: [{ type: 'Dog', name: 'Biscuit' }], interests: ['Running', 'Music'], teams: { Netball: ['Melbourne Vixens'] }, coffee: { choice: 'Long black', note: '' } });
+  const tom = mk({ name: 'Tom Nguyen', labels: ['Work'], birthday: bd(inDays(25)), partner: 'Anh', teams: { AFL: ['Collingwood'] }, mindful: 'His dad has been unwell. Check in gently.', work: merge('work', { company: 'Brightway Freight', role: 'Operations Director', relType: 'Partner', seniority: 'Exec', contact: 'Email', projects: 'Joint case study', style: ['Big picture', 'Prefers a quick chat'], styleNote: 'Calls work better than long emails' }) });
+  const maria = mk({ name: 'Maria Lopez', labels: ['Industry'], interests: ['Wine'], industry: { whereMet: 'Conference', workingOn: 'Launching a podcast about B2B marketing', help: 'Could be a guest on her podcast' } });
+  const kate = mk({ name: 'Kate Brown', labels: ['Local'], kids: [{ name: 'Olive', year: y - 10 }], local: { where: 'Hairdresser', often: 'Every 6 weeks' }, lifeUpdates: [{ date: addDays(t, -10), text: 'Off to Japan in January' }] });
+  d.people.push(priya, lucy, josh, sam, tom, maria, kate);
+  const n1 = { id: uid(), personIds: [priya.id], place: 'Coffee', date: addDays(t, -7), text: 'Max started school and loves it. She is training for a 10k in December and is after a running buddy.', created: now };
+  const n2 = { id: uid(), personIds: [tom.id], place: 'Meeting', date: addDays(t, -12), text: 'Talked through the case study. He wants to loop in his warehouse team before signing off.', created: now };
+  const n3 = { id: uid(), personIds: [lucy.id, josh.id], place: 'Family thing', date: addDays(t, -21), text: 'Housewarming in Fitzroy. Josh is getting into surfing and heads to Torquay most weekends.', created: now };
+  const n4 = { id: uid(), personIds: [kate.id], place: 'Appointment', date: addDays(t, -10), text: 'Taking Olive to Japan in January. Recommended a ramen place in Collingwood.', created: now };
+  d.notes.push(n1, n2, n3, n4);
+  d.followups.push(
+    { id: uid(), noteId: n1.id, personIds: [priya.id], due: addDays(t, 5), text: 'Ask how Max is finding school', done: false },
+    { id: uid(), noteId: n2.id, personIds: [tom.id], due: addDays(t, -2), text: 'Send intro to the warehouse team', done: false },
+    { id: uid(), noteId: n3.id, personIds: [lucy.id], due: addDays(t, 12), text: 'Drop off a housewarming gift', done: false }
+  );
+  ['Kestrel Software', 'Brightway Freight'].forEach(c => { if (!d.lists.companies.includes(c)) d.lists.companies.push(c); });
+  if (!d.lists.interests.includes('Surfing')) d.lists.interests.push('Surfing');
+}
+function migrate(d) {
+  d.lists = d.lists || {};
+  if (Array.isArray(d.lists.teams)) { d.lists.teams_AFL = d.lists.teams; delete d.lists.teams; }
+  for (const k in DEFAULT_LISTS) if (!Array.isArray(d.lists[k])) d.lists[k] = clone(DEFAULT_LISTS[k]);
+  d.settings = Object.assign({ autoLock: 5, lastBackup: null }, d.settings || {});
+  d.people = (d.people || []).map(p => { const b = blankPerson(); const out = Object.assign(b, p); ['work', 'family', 'industry', 'local', 'coffee', 'dietary'].forEach(k => { out[k] = Object.assign(blankPerson()[k], p[k] || {}); }); out.teams = Object.assign({}, p.teams || {}); if (p.team) { out.teams.AFL = [...new Set([...(out.teams.AFL || []), p.team])]; } delete out.team; return out; });
+  d.notes = d.notes || []; d.followups = d.followups || [];
+  return d;
+}
+
+/* ---------- state ---------- */
+const S = { pinEntry: '', pinBusy: false, view: 'start', stack: [], pushed: 0, vault: null, raw: null, ck: null, data: null, readOnly: false, roSaved: null, filter: 'All', q: '', pid: null, form: null, nf: null, nfq: '', ap: null, adding: null, pending: null, lastActive: Date.now(), hiddenAt: 0, celebrated: {}, fab: false, setOpen: null, gateMsg: '', bk: null, editConfirm: false };
+const person = id => S.data && S.data.people.find(p => p.id === id);
+const ROOTS = { form: () => S.form, nf: () => S.nf, ap: () => S.ap };
+function getP(o, p) { return p.split('.').reduce((a, k) => a == null ? a : a[k], o); }
+function setP(o, p, v) { const ks = p.split('.'); let a = o; for (let i = 0; i < ks.length - 1; i++) { if (a[ks[i]] == null) a[ks[i]] = {}; a = a[ks[i]]; } a[ks[ks.length - 1]] = v; }
+
+let saveTimer = null;
+async function persist() {
+  if (S.readOnly || !S.ck || !S.data || !S.vault) return;
+  clearTimeout(saveTimer);
+  try { S.vault.data = await encryptData(S.ck, S.data); await store.set('vault', S.vault); }
+  catch (e) { console.error(e); toast("Couldn't save that. Try again."); }
+}
+function persistSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(persist, 500); }
+const touch = ids => ids.forEach(id => { const p = person(id); if (p) p.updated = Date.now(); });
+
+/* ---------- theme ---------- */
+const FONTS = [['fredoka', 'Fredoka', 'rounded and friendly', "'Fredoka',sans-serif"], ['baloo', 'Baloo 2', 'bubbly and playful', "'Baloo 2',sans-serif"], ['lilita', 'Lilita One', 'bold and chunky', "'Lilita One',sans-serif"], ['fraunces', 'Fraunces', 'soft, elegant serif', "'Fraunces',serif"], ['dmserif', 'DM Serif Display', 'classic little black book', "'DM Serif Display',serif"], ['caveat', 'Caveat', 'handwritten notebook', "'Caveat',cursive"]];
+function curFont() { const f = document.documentElement.getAttribute('data-font'); return FONTS.some(x => x[0] === f) ? f : 'fraunces'; }
+function applyFont(f) { if (f && FONTS.some(x => x[0] === f) && f !== 'fraunces') document.documentElement.setAttribute('data-font', f); else document.documentElement.removeAttribute('data-font'); }
+function applyTheme(t) { if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); }
+function isDark() { const t = document.documentElement.getAttribute('data-theme'); if (t === 'dark' || t === 'light') return t === 'dark'; return matchMedia('(prefers-color-scheme: dark)').matches; }
+function themeBtn() { return `<button class="iconbtn" data-act="theme" aria-label="${isDark() ? 'Switch to light mode' : 'Switch to dark mode'}">${ic(isDark() ? 'sun' : 'moon')}</button>`; }
+
+/* ---------- navigation ---------- */
+function go(view, params = {}) {
+  S.stack.push({ view: S.view, pid: S.pid, scroll: window.scrollY });
+  Object.assign(S, params); S.view = view; S.fab = false;
+  try { history.pushState({ mbb: true }, ''); S.pushed++; } catch (e) {}
+  render(); window.scrollTo(0, 0);
+}
+function replaceView(view, params = {}) {
+  Object.assign(S, params); S.view = view; S.fab = false;
+  const last = S.stack[S.stack.length - 1];
+  if (last && last.view === view && (view !== 'person' || last.pid === S.pid)) { S.stack.pop(); if (S.pushed > 0) { S.ignorePop = (S.ignorePop || 0) + 1; S.pushed--; try { history.back(); } catch (e) { S.ignorePop--; } } }
+  render(); window.scrollTo(0, 0);
+}
+function goBack() {
+  const prev = S.stack.pop(); S.adding = null; S.setOpen = null; S.editConfirm = false;
+  if (!prev) { S.view = S.data ? 'home' : (S.vault ? 'lock' : 'start'); render(); return; }
+  S.view = prev.view; S.pid = prev.pid; render(); window.scrollTo(0, prev.scroll || 0);
+}
+window.addEventListener('popstate', () => { if (S.ignorePop > 0) { S.ignorePop--; return; } if (S.pushed > 0) S.pushed--; if (S.stack.length) goBack(); });
+function backAction() { if (S.pushed > 0 && S.stack.length) { try { history.back(); return; } catch (e) {} } goBack(); }
+
+/* ---------- toast + confetti ---------- */
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.remove('show'); void t.offsetWidth; t.classList.add('show'); clearTimeout(S.tt); S.tt = setTimeout(() => t.classList.remove('show'), 2800); }
+function confetti() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const box = document.createElement('div'); box.className = 'confetti';
+  const cols = ['#8B66FF', '#F4A259', '#5BC0A8', '#F28DB2', '#F6D35B', '#6A43DE'];
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('i');
+    s.style.left = (Math.random() * 100) + '%'; s.style.background = cols[i % cols.length];
+    s.style.animationDelay = (Math.random() * .5) + 's'; s.style.animationDuration = (1.8 + Math.random() * 1.4) + 's';
+    s.style.setProperty('--x', (Math.random() * 180 - 90) + 'px'); s.style.setProperty('--r', (Math.random() * 900 - 450) + 'deg');
+    box.appendChild(s);
+  }
+  document.body.appendChild(box); setTimeout(() => box.remove(), 3800);
+}
+
+/* ---------- small renderers ---------- */
+const LABEL_HUES = { Work: 1, Family: 2, Friend: 3, Industry: 4, Local: 5 };
+function hue(label) { if (!label) return 0; if (LABEL_HUES[label]) return LABEL_HUES[label]; let h = 0; for (const c of label) h = (h * 31 + c.charCodeAt(0)) >>> 0; return (h % 6) + 1; }
+const labChip = l => `<span class="lab h${hue(l)}">${esc(l)}</span>`;
+function initials(n) { const w = String(n || '?').trim().split(/\s+/); return esc(((w[0] || '?')[0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase()); }
+function avatar(p, xl) { return `<span class="avatar ${xl ? 'xl' : ''} h${hue(p.labels[0])}">${p.photo ? `<img src="${esc(p.photo)}" alt="">` : initials(p.name)}</span>`; }
+const sampleTag = p => p.sample ? '<span class="tag-sample">Sample</span>' : '';
+function topBar(title, { back = false, actions = '' } = {}) { return `<header class="top">${back ? `<button class="iconbtn" data-act="back" aria-label="Back">${ic('back')}</button>` : ''}<h1>${title}</h1>${actions}</header>`; }
+function viaText(p) { const c = p.connections[0]; if (!c) return ''; const o = person(c.id); return o ? `${c.how || 'Linked to'} ${firstName(o.name)}` : ''; }
+function personRow(p, sub) {
+  const s = sub ?? [p.labels.join(' · '), viaText(p)].filter(Boolean).join(' · ');
+  return `<button class="row" data-act="open" data-id="${p.id}">${avatar(p)}<span class="grow"><span class="t"><span class="nm">${esc(p.name)}</span>${p.nickname ? ` <span style="color:var(--muted);font-weight:600">(${esc(p.nickname)})</span>` : ''}</span><span class="s">${esc(s) || '&nbsp;'}</span></span>${sampleTag(p)}</button>`;
+}
+function namesOf(ids, first) { return ids.map(person).filter(Boolean).map(p => first ? firstName(p.name) : p.name); }
+const joinAnd = a => a.length <= 1 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+
+/* ---------- pickers ---------- */
+function picker(root, path, listKey, multi) {
+  const obj = ROOTS[root]();
+  const sel = getP(obj, path);
+  const vals = multi ? (sel || []) : (sel ? [sel] : []);
+  const opts = [...S.data.lists[listKey]];
+  vals.forEach(v => { if (v && !opts.includes(v)) opts.push(v); });
+  const adding = S.adding === root + ':' + path;
+  return `<div class="chips" data-picker="${path}" data-root="${root}" data-list="${listKey}" data-multi="${multi ? 1 : 0}">${opts.map(o => { const on = vals.includes(o); return `<button type="button" class="chip ${on ? 'on' : ''}" data-act="pick" data-val="${esc(o)}" aria-pressed="${on}">${on ? ic('check') : ''}${esc(o)}</button>`; }).join('')}${adding ? `<span class="addwrap"><input type="text" class="addin" placeholder="New option" enterkeyhint="done" aria-label="New option"><button type="button" class="chip on" data-act="addopt">Add</button></span>` : `<button type="button" class="chip add" data-act="startadd">${ic('plus')}Add</button>`}</div>`;
+}
+function redrawPicker(pk) { const html = picker(pk.dataset.root, pk.dataset.picker, pk.dataset.list, pk.dataset.multi === '1'); pk.outerHTML = html; }
+function findPicker(root, path) { return [...document.querySelectorAll('[data-picker]')].find(el => el.dataset.root === root && el.dataset.picker === path); }
+function onPicked(root, path) {
+  if (root === 'form' && path.startsWith('teams.')) refreshTeams();
+  if (root === 'form' && path === 'labels') document.querySelectorAll('[data-sec]').forEach(s => { s.hidden = !S.form.labels.includes(s.dataset.sec); });
+}
+
+/* ---------- coming up ---------- */
+function comingUp() {
+  const items = [];
+  for (const p of S.data.people) { const nb = nextBday(p.birthday); if (nb && nb.days <= 30) items.push({ type: 'bday', p, date: nb.iso, days: nb.days, turning: nb.turning }); }
+  for (const f of S.data.followups) { if (f.done) continue; const n = daysFromToday(f.due); if (n <= 14) items.push({ type: 'fu', f, date: f.due, days: n }); }
+  return items.sort((a, b) => a.days - b.days);
+}
+function fuTitle(f) { return f.text || `Follow up with ${joinAnd(namesOf(f.personIds, true))}`; }
+function upRow(it) {
+  if (it.type === 'bday') {
+    const sub = it.days === 0 ? (it.turning ? `Turns ${it.turning} today` : 'Today') : (it.turning ? `Turns ${it.turning} on ${fmtDate(it.date)}` : fmtDate(it.date));
+    return `<button class="row ${it.days === 0 ? 'today-row' : ''}" data-act="open" data-id="${it.p.id}"><span class="ico bday">${ic('cake')}</span><span class="grow"><span class="t">${esc(it.p.name)}'s birthday</span><span class="s">${esc(sub)}</span></span><span class="when ${it.days === 0 ? 'now' : ''}">${relDay(it.days)}</span></button>`;
+  }
+  const f = it.f; const late = it.days < 0;
+  return `<div class="row" data-act="open" data-id="${f.personIds[0] || ''}" role="button" tabindex="0"><span class="ico">${ic('chat')}</span><span class="grow"><span class="t wrap">${esc(fuTitle(f))}</span><span class="s">${esc(joinAnd(namesOf(f.personIds)))}</span></span><span class="when ${late ? 'late' : ''}">${late ? 'Overdue' : relDay(it.days)}</span>${S.readOnly ? '' : `<button class="tick" data-act="fudone" data-id="${f.id}" aria-label="Mark done">${ic('check')}</button>`}</div>`;
+}
+
+/* ---------- search ---------- */
+function snippet(text, q) { const i = text.toLowerCase().indexOf(q); const s = Math.max(0, i - 24); return (s > 0 ? '…' : '') + text.slice(s, i + q.length + 40) + (i + q.length + 40 < text.length ? '…' : ''); }
+function searchPeople(q) {
+  const out = [];
+  for (const p of S.data.people) {
+    const fields = [['', p.name], ['Goes by', p.nickname], ['Partner', p.partner], ...p.kids.map(k => ['Kid', k.name]), ...p.pets.map(x => ['Pet', [x.name, x.type && `(${x.type})`].filter(Boolean).join(' ')]), ...p.interests.map(i => ['Interest', i]), ...teamList(p).map(t => ['Team', `${t.team} (${t.sport})`]), ['Company', p.work.company], ['Role', p.work.role], ['How you met', p.howMet], ['Favourites', p.favourites], ...p.lifeUpdates.map(l => ['Update', l.text]), ['Label', p.labels.join(' ')], ['Family', p.family.relation], ['Working on', p.industry.workingOn], ['Where', p.local.where], ['Coffee', p.coffee.choice], ['Mindful of', p.mindful]];
+    let hit = null;
+    for (const [k, v] of fields) if (v && String(v).toLowerCase().includes(q)) { hit = [k, String(v)]; break; }
+    if (!hit) { const n = S.data.notes.find(n => n.personIds.includes(p.id) && n.text.toLowerCase().includes(q)); if (n) hit = ['Note', snippet(n.text, q)]; }
+    if (hit) out.push({ p, sub: hit[0] ? `${hit[0]}: ${hit[1]}` : null });
+  }
+  return out;
+}
+
+/* ---------- views ---------- */
+const V = {};
+
+V.start = () => `<div class="gate">${logo(128)}<h1>My Black Book</h1><p>Remember the little things about the people in your life. Locked on this device and private to you.</p>
+  <div class="stack"><button class="btn block" data-act="go" data-view="setup">${ic('book')}Set up my book</button><button class="btn ghost block" data-act="go" data-view="openbk">${ic('file')}Open a backup file</button></div>
+  ${cryptoOk() ? '' : `<p class="err">This browser can't lock your book securely. Open it in Chrome.</p>`}</div>`;
+
+V.setup = () => `${topBar('Set up', { back: true })}
+  <form class="form" data-form="setup" novalidate>
+  <div class="group"><h3>${ic('lock')}Your PIN</h3><p class="prose">You'll use this to open the app each day. 4 to 8 digits.</p>
+    <div class="pair"><div class="field"><label for="s-pin">PIN</label><input id="s-pin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="8"></div>
+    <div class="field"><label for="s-pin2">Type it again</label><input id="s-pin2" type="password" inputmode="numeric" autocomplete="new-password" maxlength="8"></div></div></div>
+  <div class="group"><h3>${ic('key')}Your passphrase</h3><p class="prose">This locks your backups and opens the app on your laptop. Use a few random words. At least 12 characters.</p>
+    <div class="field"><label for="s-pass">Passphrase</label><input id="s-pass" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="linkbtn" style="align-self:flex-start;padding-left:0" data-act="suggest">${'Suggest one for me'}</button></div>
+    <div class="field"><label for="s-pass2">Type it again</label><input id="s-pass2" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    <label class="check"><input type="checkbox" id="s-saved"><span>I've saved my passphrase somewhere safe. If I forget it, nobody can reset it.</span></label></div>
+  <div class="group"><label class="check"><input type="checkbox" id="s-sample" checked><span>Add sample people so I can try things out. You can remove them later in settings.</span></label></div>
+  <p class="err" id="s-err" hidden></p>
+  <div class="savebar"><button type="submit" class="btn" id="s-go">${ic('shield')}Lock it up</button></div></form>`;
+
+function dotsHTML() { const n = Math.max(S.vault && S.vault.pinLen ? S.vault.pinLen : 4, S.pinEntry.length); let h = ''; for (let i = 0; i < n; i++) h += `<i class="${i < S.pinEntry.length ? 'f' : ''}"></i>`; return h; }
+function updateDots() { const d = $('#dots'); if (d) d.innerHTML = dotsHTML(); }
+V.lock = () => `<div class="gate locking">${logo(84)}<h1>My Black Book</h1><p>${esc(S.gateMsg || 'Enter your PIN to open your book.')}</p>
+  <div class="dots" id="dots" role="img" aria-label="PIN entry">${dotsHTML()}</div><p class="err" id="g-err" hidden></p>
+  <div class="pad" role="group" aria-label="PIN keypad">${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `<button type="button" class="key" data-act="key" data-val="${n}">${n}</button>`).join('')}<button type="button" class="key fn" data-act="keydel" aria-label="Delete last digit">${ic('back')}</button><button type="button" class="key" data-act="key" data-val="0">0</button><button type="button" class="key fn ok" data-act="keyok" aria-label="Unlock">${ic('check')}</button></div>
+  <div><button class="linkbtn" data-act="usepass">Use my passphrase instead</button></div>
+  <div><button class="linkbtn" data-act="go" data-view="openbk">Open a backup file</button></div></div>`;
+
+V.pass = () => { const forced = S.vault && S.vault.fails >= MAX_TRIES; return `<div class="gate">${logo(110)}<h1>My Black Book</h1><p>${forced ? 'Too many wrong PINs. Enter your passphrase to unlock.' : 'Enter your passphrase to unlock.'}</p>
+  <form class="stack" data-form="pass" novalidate><input id="passin" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Passphrase" placeholder="Passphrase"><p class="err" id="g-err" hidden></p><button type="submit" class="btn block" id="g-go">Unlock</button></form>
+  ${forced ? '' : `<div><button class="linkbtn" data-act="usepin">Use my PIN instead</button></div>`}</div>`; };
+
+V.openbk = () => `${topBar('Open a backup', { back: true })}
+  <form class="form" data-form="openbk" novalidate><div class="group"><h3>${ic('file')}Backup file</h3><p class="prose">Pick the backup you saved to Google Drive. It's named like my-black-book-backup-${todayISO()}.txt.</p>
+  <div class="field"><label for="bk-file">File</label><input id="bk-file" type="file"></div>
+  <div class="field"><label for="bk-pass">Passphrase</label><input id="bk-pass" type="password" autocomplete="off" autocapitalize="off" spellcheck="false"></div></div>
+  <p class="err" id="bk-err" hidden></p><div class="savebar"><button type="submit" class="btn" id="bk-go">Open</button></div></form>`;
+
+V.bkchoice = () => { const b = S.bk; const n = b.data.people.length; return `${topBar('Backup opened', { back: true })}
+  <div class="form"><div class="group"><div class="kv"><span>Saved</span><b>${esc(new Date(b.json.saved).toLocaleString('en-AU', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }))}</b></div><div class="kv"><span>People</span><b>${n}</b></div></div>
+  <div class="group"><h3>${ic('book')}View only</h3><p class="prose">For your laptop. Read everything without changing it. Nothing is kept on this device after you close it.</p><button class="btn" data-act="viewonly">View only</button></div>
+  <div class="group"><h3>${ic('upload')}Use as my book on this device</h3><p class="prose">For a new phone. You'll choose a PIN, and your passphrase stays the same.${S.vault ? ' This replaces the book that is already on this device.' : ''}</p><button class="btn ${S.vault ? 'danger' : 'soft'}" data-act="go" data-view="restorepin">Use this backup here</button></div></div>`; };
+
+V.restorepin = () => `${topBar('Choose a PIN', { back: true })}
+  <form class="form" data-form="restore" novalidate><div class="group"><p class="prose">Pick a PIN for this device. 4 to 8 digits.</p><div class="pair"><div class="field"><label for="r-pin">PIN</label><input id="r-pin" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></div><div class="field"><label for="r-pin2">Type it again</label><input id="r-pin2" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></div></div></div>
+  <p class="err" id="r-err" hidden></p><div class="savebar"><button type="submit" class="btn" id="r-go">${ic('shield')}Use this backup</button></div></form>`;
+
+function roBanner() { return S.readOnly ? `<div class="ro-banner">${ic('info')}<span>Read-only view of a backup saved ${esc(new Date(S.roSaved).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' }))}.</span></div>` : ''; }
+
+V.home = () => {
+  const ro = S.readOnly;
+  const acts = themeBtn() + (ro ? `<button class="iconbtn" data-act="closeview" aria-label="Close backup">${ic('x')}</button>` : `<button class="iconbtn" data-act="lock" aria-label="Lock">${ic('lock')}</button><button class="iconbtn" data-act="go" data-view="settings" aria-label="Settings">${ic('settings')}</button>`);
+  return `${topBar(`<span class="brand">${logo(30)}My Black Book</span>${ro ? ' <span class="ro-pill">Read-only</span>' : ''}`, { actions: acts })}${roBanner()}
+  <label class="search">${ic('search')}<input id="q" type="search" class="bare" placeholder="Search names, kids, hobbies, notes" value="${esc(S.q)}" autocomplete="off" enterkeyhint="search" aria-label="Search"></label>
+  <div id="homebody">${homeBody()}</div>
+  ${ro ? '' : `${S.fab ? `<div class="scrim" data-act="fab"></div><div class="fabmenu"><button data-act="newnote">${ic('note')}Write a note</button><button data-act="newperson">${ic('users')}Add a person</button></div>` : ''}<button class="fab ${S.fab ? 'open' : ''}" data-act="fab" aria-label="${S.fab ? 'Close menu' : 'Add'}" aria-expanded="${S.fab}">${ic('plus')}</button>`}`;
+};
+function homeBody() {
+  const d = S.data, q = S.q.trim().toLowerCase();
+  if (q) {
+    const res = searchPeople(q);
+    return `<div class="sec"><h2>Results</h2><small>${res.length} ${res.length === 1 ? 'person' : 'people'}</small></div>${res.length ? `<div class="card list">${res.map(r => personRow(r.p, r.sub)).join('')}</div>` : `<div class="card empty"><b>No matches</b>Try a name, a kid's name, a hobby or a word from a note.</div>`}`;
+  }
+  if (!d.people.length) return `<div class="card empty" style="margin-top:24px"><b>Add your first person</b>Start with someone you'll see this week.<div style="margin-top:14px">${S.readOnly ? '' : `<button class="btn" data-act="newperson">${ic('plus')}Add a person</button>`}</div></div>`;
+  const up = comingUp();
+  let h = `<div class="sec"><h2>Coming up</h2><small>Next few weeks</small></div>`;
+  h += up.length ? `<div class="card list">${up.map(upRow).join('')}</div>` : `<div class="card empty" style="padding:18px">Birthdays and follow-ups due soon will show here.</div>`;
+  if (!S.readOnly) { const lb = d.settings.lastBackup; const stale = !lb || -daysFromToday(isoOf(new Date(lb))) >= 14; h += `<div class="backup ${stale ? 'stale' : ''}">${ic('upload')}<span>Saved to Drive ${esc(agoText(lb))}</span><button data-act="backup">Save now</button></div>`; }
+  h += `<div class="sec"><h2>People</h2><small>${d.people.length} in your book</small></div><div class="filters" role="group" aria-label="Filter by label">${['All', ...d.lists.labels].map(l => `<button class="chip ${S.filter === l ? 'on' : ''}" data-act="filter" data-val="${esc(l)}" aria-pressed="${S.filter === l}">${esc(l)}</button>`).join('')}</div>`;
+  const az = arr => [...arr].sort((a, b) => a.name.localeCompare(b.name));
+  if (S.filter === 'All') {
+    const recent = [...d.people].sort((a, b) => b.updated - a.updated).slice(0, 4);
+    h += `<div class="sec" style="margin-top:14px"><h2>Recently updated</h2></div><div class="card list">${recent.map(p => personRow(p)).join('')}</div>`;
+    const groups = [...d.lists.labels]; d.people.forEach(p => p.labels.forEach(l => { if (!groups.includes(l)) groups.push(l); }));
+    for (const g of groups) { const ps = az(d.people.filter(p => p.labels.includes(g))); if (!ps.length) continue; h += `<div class="sec"><h2><span class="dot h${hue(g)}"></span>${esc(g)}</h2><small>${ps.length}</small></div><div class="card list">${ps.map(p => personRow(p)).join('')}</div>`; }
+    const none = az(d.people.filter(p => !p.labels.length)); if (none.length) h += `<div class="sec"><h2><span class="dot h0"></span>No label</h2><small>${none.length}</small></div><div class="card list">${none.map(p => personRow(p)).join('')}</div>`;
+  } else {
+    const ps = az(d.people.filter(p => p.labels.includes(S.filter)));
+    h += ps.length ? `<div class="card list" style="margin-top:10px">${ps.map(p => personRow(p)).join('')}</div>` : `<div class="card empty" style="margin-top:10px">No one has the ${esc(S.filter)} label yet.</div>`;
+  }
+  return h;
+}
+
+function links(p) {
+  const out = [];
+  for (const c of p.connections) { const o = person(c.id); if (o) out.push({ id: o.id, text: `${c.how || 'Linked to'} ${o.name}` }); }
+  for (const o of S.data.people) { if (o.id === p.id) continue; for (const c of o.connections) if (c.id === p.id) out.push({ id: o.id, text: `${o.name} · ${c.how || 'Linked to'} ${firstName(p.name)}` }); }
+  return out;
+}
+const fact = (icon, k, v) => v ? `<div class="fact">${ic(icon)}<span style="min-width:0"><span class="k">${k}</span><span class="v">${v}</span></span></div>` : '';
+const chipsOf = arr => arr && arr.length ? `<span class="chips">${arr.map(x => `<span class="mini">${esc(x)}</span>`).join('')}</span>` : '';
+const withNote = (main, note) => main || note ? esc([main, note].filter(Boolean).join(' · ')) : '';
+const cardOf = (title, inner) => inner.trim() ? `<div class="sec"><h2>${title}</h2></div><div class="card facts">${inner}</div>` : '';
+
+V.person = () => {
+  const p = person(S.pid); if (!p) { S.view = 'home'; return V.home(); }
+  const ro = S.readOnly;
+  const nb = nextBday(p.birthday);
+  const ln = links(p);
+  let h = topBar('', { back: true, actions: ro ? themeBtn() : `${themeBtn()}<button class="iconbtn" data-act="edit" aria-label="Edit ${esc(p.name)}">${ic('edit')}</button>` });
+  h += roBanner();
+  h += `<div class="hero">${avatar(p, true)}<h2>${esc(p.name)}</h2>${p.nickname ? `<div class="nick">Goes by ${esc(p.nickname)}</div>` : ''}<div class="labels" style="justify-content:center">${p.labels.map(labChip).join('')}${sampleTag(p)}</div>${ln.length ? `<div class="linked">${ln.map(l => `<button class="linkchip" data-act="open" data-id="${l.id}">${ic('link')}${esc(l.text)}</button>`).join('')}</div>` : ''}</div>`;
+  if (!ro) h += `<div class="actions"><button class="btn" data-act="noteabout">${ic('note')}Add a note</button>${p.birthday ? `<button class="btn soft" data-act="calbday">${ic('calendar')}Birthday to calendar</button>` : ''}</div>`;
+  if (p.mindful) h += `<div class="mindful">${ic('info')}<span><b>Be mindful</b>${esc(p.mindful)}</span></div>`;
+
+  const openFu = S.data.followups.filter(f => !f.done && f.personIds.includes(p.id)).sort((a, b) => a.due.localeCompare(b.due));
+  if (openFu.length) h += `<div class="sec"><h2>Follow-ups</h2></div><div class="card list">${openFu.map(f => { const n = daysFromToday(f.due); return `<div class="row"><span class="ico">${ic('chat')}</span><span class="grow"><span class="t" style="white-space:normal">${esc(fuTitle(f))}</span><span class="s">${n < 0 ? 'Overdue · ' : ''}${esc(fmtDate(f.due))}</span></span>${ro ? '' : `<button class="tick" data-act="calfu" data-id="${f.id}" aria-label="Add follow-up to calendar">${ic('calendar')}</button><button class="tick" data-act="fudone" data-id="${f.id}" aria-label="Mark done">${ic('check')}</button>`}</div>`; }).join('')}</div>`;
+
+  const kids = p.kids.filter(k => k.name).map(k => { const a = kidAge(k.year); return esc(k.name) + (a !== null ? `, ${a}` : ''); }).join(' · ');
+  const pets = p.pets.filter(x => x.name || x.type).map(x => esc(x.name ? `${x.name}${x.type ? ` (${x.type.toLowerCase()})` : ''}` : x.type)).join(' · ');
+  const bdayV = p.birthday ? `${esc(bdayText(p.birthday))}${nb ? ` <span style="color:var(--muted)">· ${nb.days === 0 ? 'today!' : relDay(nb.days).toLowerCase()}${nb.turning ? `, turning ${nb.turning}` : ''}</span>` : ''}` : '';
+  h += cardOf('About', fact('cake', 'Birthday', bdayV) + fact('users', 'How you met', esc(p.howMet)) + fact('heart', 'Partner', esc(p.partner)) + fact('kid', 'Kids', kids) + fact('paw', 'Pets', pets) + fact('star', 'Interests', chipsOf(p.interests)) + fact('trophy', teamList(p).length > 1 ? 'Teams' : 'Team', chipsOf(teamList(p).map(t => t.sport === 'Other' ? t.team : `${t.team} · ${t.sport}`))) + fact('coffee', 'Coffee', withNote(p.coffee.choice, p.coffee.note)) + fact('food', 'Dietary', (p.dietary.choices.length || p.dietary.note) ? chipsOf(p.dietary.choices) + (p.dietary.note ? `<span style="display:block;margin-top:4px">${esc(p.dietary.note)}</span>` : '') : '') + fact('gift', 'Favourite things', esc(p.favourites)));
+  if (p.lifeUpdates.length) h += `<div class="sec"><h2>Life updates</h2></div><div class="card facts">${[...p.lifeUpdates].sort((a, b) => (b.date || '').localeCompare(a.date || '')).map(l => fact('sparkle', l.date ? fmtDate(l.date) : 'Update', esc(l.text))).join('')}</div>`;
+  if (p.labels.includes('Work')) { const w = p.work; h += cardOf('Work', fact('work', 'Company', esc(w.company)) + fact('tag', 'Role', esc([w.role, w.team && `${w.team} team`].filter(Boolean).join(' · '))) + fact('users', 'Relationship', esc([w.relType, w.seniority].filter(Boolean).join(' · '))) + fact('chat', 'Best way to reach them', esc(w.contact)) + fact('list', 'Projects together', esc(w.projects)) + fact('sparkle', 'How they like to work', (w.style.length || w.styleNote) ? chipsOf(w.style) + (w.styleNote ? `<span style="display:block;margin-top:4px">${esc(w.styleNote)}</span>` : '') : '')); }
+  if (p.labels.includes('Family')) h += cardOf('Family', fact('family', 'Related as', esc(p.family.relation)));
+  if (p.labels.includes('Industry')) { const x = p.industry; h += cardOf('Industry', fact('pin', 'Where you met', esc(x.whereMet)) + fact('work', 'Working on', esc(x.workingOn)) + fact('heart', 'How you might help each other', esc(x.help))); }
+  if (p.labels.includes('Local')) { const x = p.local; h += cardOf('Local', fact('pin', 'Where you see them', esc(x.where)) + fact('clock', 'How often', esc(x.often))); }
+
+  const notes = S.data.notes.filter(n => n.personIds.includes(p.id)).sort((a, b) => b.date.localeCompare(a.date) || b.created - a.created);
+  h += `<div class="sec"><h2>Conversations</h2><small>${notes.length || ''}</small></div>`;
+  h += notes.length ? `<div class="card timeline">${notes.map(n => { const others = namesOf(n.personIds.filter(id => id !== p.id), true); return `<div class="note"><div class="meta"><span>${esc(fmtDate(n.date))}</span>${n.place ? `<span class="mini">${esc(n.place)}</span>` : ''}${ro ? '' : `<button class="edit" data-act="editnote" data-id="${n.id}">Edit</button>`}</div><p>${esc(n.text)}</p>${others.length ? `<div class="with">With ${esc(joinAnd(others))}</div>` : ''}</div>`; }).join('')}</div>` : `<div class="card empty" style="padding:18px">No notes yet. After you next chat, add what you talked about.</div>`;
+  return h;
+};
+
+/* person edit */
+function rowsHTML(k) {
+  const f = S.form;
+  if (k === 'kids') return f.kids.map((x, i) => `<div class="rowin"><input type="text" placeholder="Name" aria-label="Kid's name" data-root="form" data-bind="kids.${i}.name" value="${esc(x.name)}"><input type="number" class="yr" inputmode="numeric" placeholder="Birth year" aria-label="Birth year" min="1900" max="${new Date().getFullYear()}" data-root="form" data-bind="kids.${i}.year" value="${esc(x.year ?? '')}"><button type="button" class="rm" data-act="rmrow" data-k="kids" data-i="${i}" aria-label="Remove">${ic('x')}</button></div>`).join('');
+  if (k === 'pets') return f.pets.map((x, i) => `<div class="subcard"><div class="rowin"><input type="text" placeholder="Pet's name" aria-label="Pet's name" data-root="form" data-bind="pets.${i}.name" value="${esc(x.name)}"><button type="button" class="rm" data-act="rmrow" data-k="pets" data-i="${i}" aria-label="Remove">${ic('x')}</button></div>${picker('form', `pets.${i}.type`, 'pets', false)}</div>`).join('');
+  if (k === 'connections') { const others = S.data.people.filter(o => o.id !== f.id).sort((a, b) => a.name.localeCompare(b.name)); return f.connections.map((x, i) => `<div class="subcard"><div class="rowin"><select aria-label="Linked person" data-root="form" data-bind="connections.${i}.id"><option value="">Choose a person…</option>${others.map(o => `<option value="${o.id}" ${o.id === x.id ? 'selected' : ''}>${esc(o.name)}</option>`).join('')}</select><button type="button" class="rm" data-act="rmrow" data-k="connections" data-i="${i}" aria-label="Remove">${ic('x')}</button></div>${picker('form', `connections.${i}.how`, 'connectionHow', false)}</div>`).join(''); }
+  if (k === 'lifeUpdates') return f.lifeUpdates.map((x, i) => `<div class="rowin"><input type="text" placeholder="New job, moved house, trip coming up…" aria-label="Life update" data-root="form" data-bind="lifeUpdates.${i}.text" value="${esc(x.text)}"><button type="button" class="rm" data-act="rmrow" data-k="lifeUpdates" data-i="${i}" aria-label="Remove">${ic('x')}</button></div>`).join('');
+  return '';
+}
+const blankRow = { kids: () => ({ name: '', year: '' }), pets: () => ({ type: '', name: '' }), connections: () => ({ id: '', how: '' }), lifeUpdates: () => ({ text: '', date: '' }) };
+const addLabel = { kids: 'Add a kid', pets: 'Add a pet', connections: 'Link someone', lifeUpdates: 'Add an update' };
+const rowsBlock = k => `<div id="rows-${k}" class="form" style="gap:10px">${rowsHTML(k)}</div><button type="button" class="addrow" data-act="addrow" data-k="${k}">${ic('plus')}${addLabel[k]}</button>`;
+const tf = (id, label, path, ph = '', extra = '') => `<div class="field"><label for="${id}">${label}</label><input type="text" id="${id}" data-root="form" data-bind="${path}" value="${esc(getP(S.form, path))}" placeholder="${esc(ph)}" ${extra}></div>`;
+const ta = (id, label, path, ph = '') => `<div class="field"><label for="${id}">${label}</label><textarea id="${id}" data-root="form" data-bind="${path}" placeholder="${esc(ph)}" style="min-height:80px">${esc(getP(S.form, path))}</textarea></div>`;
+const pk = (label, path, list, multi, hint) => `<div class="field"><span class="lbl">${label}</span>${hint ? `<span class="hint">${hint}</span>` : ''}${picker('form', path, list, multi)}</div>`;
+function photoBox() { const f = S.form; return `<label class="avatar xl h${hue(f.labels[0])}" for="photo" style="cursor:pointer;position:relative">${f.photo ? `<img src="${esc(f.photo)}" alt="">` : (f.name ? initials(f.name) : ic('camera'))}</label><input type="file" id="photo" accept="image/*" hidden><span style="display:flex;gap:6px;justify-content:center"><label for="photo" class="linkbtn">${f.photo ? 'Change photo' : 'Add a photo'}</label>${f.photo ? `<button type="button" class="linkbtn" data-act="rmphoto">Remove</button>` : ''}</span>`; }
+
+function teamSel() { const ts = teamList(S.form); return ts.length ? `<div class="chips">${ts.map(t => `<button type="button" class="chip on" data-act="rmteam" data-sport="${t.sport}" data-team="${esc(t.team)}" aria-label="Remove ${esc(t.team)}">${esc(t.team)}${t.sport !== 'Other' ? ` · ${t.sport}` : ''} ${ic('x')}</button>`).join('')}</div>` : ''; }
+function sportChips() { return `<div class="chips sports" role="group" aria-label="Sport">${SPORTS.map(sp => { const n = ((S.form.teams || {})[sp] || []).length; return `<button type="button" class="chip ${S.teamSport === sp ? 'on' : ''}" data-act="sport" data-val="${sp}" aria-pressed="${S.teamSport === sp}">${esc(sp)}${n ? ` <span class="cnt">${n}</span>` : ''}</button>`; }).join('')}</div>`; }
+function teamField() { return `<div class="field"><span class="lbl">Teams</span><span class="hint">Pick a sport, then their team. Add as many as you like.</span><div id="teamsel">${teamSel()}</div><div id="sports">${sportChips()}</div><div id="teampick" class="teampick">${picker('form', 'teams.' + S.teamSport, 'teams_' + S.teamSport, true)}</div></div>`; }
+function refreshTeams() { $('#teamsel').innerHTML = teamSel(); $('#sports').innerHTML = sportChips(); }
+V.edit = () => {
+  const f = S.form; const isNew = !f.id; const sec = l => f.labels.includes(l) ? '' : 'hidden';
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  return `${topBar(isNew ? 'Add a person' : 'Edit', { back: true })}
+  <form class="form" data-form="person" novalidate>
+  <div class="group"><div id="photobox" style="display:flex;flex-direction:column;align-items:center;gap:4px">${photoBox()}</div>
+    ${tf('e-name', 'Name', 'name', 'Full name', 'autocomplete="off" autocapitalize="words"')}${tf('e-nick', 'Nickname', 'nickname', 'What they like to be called', 'autocomplete="off"')}
+    ${pk('Labels', 'labels', 'labels', true, 'Pick all that fit.')}</div>
+  <div class="group"><h3>${ic('cake')}Birthday</h3><div class="triple">
+    <div class="field"><label for="e-bd">Day</label><select id="e-bd" data-root="form" data-bind="bd.d"><option value="">–</option>${days.map(d => `<option ${String(f.bd.d) === String(d) ? 'selected' : ''}>${d}</option>`).join('')}</select></div>
+    <div class="field"><label for="e-bm">Month</label><select id="e-bm" data-root="form" data-bind="bd.m"><option value="">–</option>${MONTHS_FULL.map((m, i) => `<option value="${i + 1}" ${String(f.bd.m) === String(i + 1) ? 'selected' : ''}>${m}</option>`).join('')}</select></div>
+    <div class="field"><label for="e-by">Year</label><input type="number" id="e-by" inputmode="numeric" placeholder="Optional" min="1900" max="${new Date().getFullYear()}" data-root="form" data-bind="bd.y" value="${esc(f.bd.y)}"></div></div></div>
+  <div class="group"><h3>${ic('link')}How you're connected</h3>${tf('e-met', 'How you met', 'howMet', 'Uni, a mutual friend, first day at work…')}<div class="field"><span class="lbl">Linked people</span><span class="hint">Like a cousin's partner, or a colleague's husband who's also in your book.</span>${rowsBlock('connections')}</div></div>
+  <div class="group"><h3>${ic('heart')}Their people</h3>${tf('e-partner', 'Partner', 'partner', 'Name')}<div class="field"><span class="lbl">Kids</span><span class="hint">Add a birth year and their age updates itself.</span>${rowsBlock('kids')}</div><div class="field"><span class="lbl">Pets</span>${rowsBlock('pets')}</div></div>
+  <div class="group"><h3>${ic('star')}What they're into</h3>${pk('Interests', 'interests', 'interests', true)}${teamField()}</div>
+  <div class="group"><h3>${ic('coffee')}Handy details</h3>${pk('Coffee order', 'coffee.choice', 'coffee', false)}${tf('e-coffee', 'Coffee note', 'coffee.note', 'Extra hot, half sugar…')}${pk('Dietary', 'dietary.choices', 'dietary', true)}${tf('e-diet', 'Dietary note', 'dietary.note', 'How strict, any allergies…')}${ta('e-fav', 'Favourite things', 'favourites', 'Flowers, wine, snacks, shows…')}</div>
+  <div class="group"><h3>${ic('sparkle')}Life updates</h3><span class="hint" style="margin-top:-8px">Big things going on. New ones are dated today.</span>${rowsBlock('lifeUpdates')}${ta('e-mind', 'Things to be mindful of', 'mindful', 'Topics to avoid or approach gently')}</div>
+  <div class="group" data-sec="Work" ${sec('Work')}><h3>${ic('work')}Work</h3>${pk('Company', 'work.company', 'companies', false)}<div class="pair">${tf('e-role', 'Role', 'work.role', 'Their job title')}${tf('e-team', 'Team', 'work.team', 'Team or department')}</div>${pk('Relationship', 'work.relType', 'relType', false)}${pk('Seniority', 'work.seniority', 'seniority', false)}${pk('Best way to reach them', 'work.contact', 'contact', false)}${tf('e-proj', 'Projects together', 'work.projects', 'What you have worked on')}${pk('How they like to work', 'work.style', 'workStyle', true)}${tf('e-style', 'Working style note', 'work.styleNote')}</div>
+  <div class="group" data-sec="Family" ${sec('Family')}><h3>${ic('family')}Family</h3>${pk('How they are related to you', 'family.relation', 'familyRelation', false)}</div>
+  <div class="group" data-sec="Industry" ${sec('Industry')}><h3>${ic('users')}Industry</h3>${pk('Where you met', 'industry.whereMet', 'whereMet', false)}${tf('e-wo', 'What they are working on', 'industry.workingOn')}${tf('e-help', 'How you might help each other', 'industry.help')}</div>
+  <div class="group" data-sec="Local" ${sec('Local')}><h3>${ic('pin')}Local</h3>${pk('Where you see them', 'local.where', 'localWhere', false)}${pk('How often', 'local.often', 'localOften', false)}</div>
+  ${isNew ? '' : `<div class="group">${S.editConfirm ? `<div class="confirm">Delete ${esc(f.name || 'this person')}? Their notes with only them are deleted too. This can't be undone.<div class="btns"><button type="button" class="btn danger" data-act="delperson">Delete</button><button type="button" class="btn ghost" data-act="canceldel">Keep</button></div></div>` : `<button type="button" class="btn danger" data-act="askdel">${ic('trash')}Delete person</button>`}</div>`}
+  <p class="err" id="e-err" hidden></p>
+  <div class="savebar"><button type="submit" class="btn">${ic('check')}Save</button></div></form>`;
+};
+
+/* note */
+function whoSel() { return S.nf.personIds.map(id => { const p = person(id); return p ? `<button type="button" class="chip on" data-act="nfrm" data-id="${id}" aria-label="Remove ${esc(p.name)}">${esc(p.name)} ${ic('x')}</button>` : ''; }).join(''); }
+function whoSug() {
+  const q = S.nfq.trim().toLowerCase();
+  let ps = S.data.people.filter(p => !S.nf.personIds.includes(p.id));
+  ps = q ? ps.filter(p => p.name.toLowerCase().includes(q) || (p.nickname || '').toLowerCase().includes(q)) : ps.sort((a, b) => b.updated - a.updated);
+  ps = ps.slice(0, 6);
+  if (!ps.length) return q ? `<span class="hint">No one called that yet. Add them as a person first.</span>` : '';
+  return `<div class="chips">${ps.map(p => `<button type="button" class="chip" data-act="nfadd" data-id="${p.id}">${ic('plus')}${esc(p.name)}</button>`).join('')}</div>`;
+}
+function refreshWho() { $('#whosel').innerHTML = whoSel(); $('#whosug').innerHTML = whoSug(); $('#fublock').innerHTML = fuBlock(); }
+const FUQ = [['none', 'None'], ['tomorrow', 'Tomorrow'], ['week', 'Next week'], ['month', 'Next month'], ['pick', 'Pick a date']];
+function fuBlock() {
+  const f = S.nf;
+  let h = `<div class="chips">${FUQ.map(([k, l]) => `<button type="button" class="chip ${f.fu === k ? 'on' : ''}" data-act="fuq" data-val="${k}" aria-pressed="${f.fu === k}">${f.fu === k ? ic('check') : ''}${l}</button>`).join('')}</div>`;
+  if (f.fu !== 'none') {
+    if (f.fu === 'pick') h += `<div class="field"><label for="n-fud">Date</label><input type="date" id="n-fud" data-root="nf" data-bind="fuDate" value="${esc(f.fuDate)}"></div>`;
+    else h += `<span class="hint">Due ${esc(fmtDate(dueFrom(f)))}</span>`;
+    h += `<div class="field"><label for="n-fut">What to follow up on</label><input type="text" id="n-fut" data-root="nf" data-bind="fuText" value="${esc(f.fuText)}" placeholder="Ask how the interview went"></div>`;
+    if (f.personIds.length > 1) h += `<div class="field"><span class="lbl">Who for</span><div class="chips">${[['all', 'Everyone'], ...f.personIds.map(id => [id, firstName((person(id) || {}).name)])].map(([k, l]) => `<button type="button" class="chip ${f.fuFor === k ? 'on' : ''}" data-act="fufor" data-val="${k}">${f.fuFor === k ? ic('check') : ''}${esc(l)}</button>`).join('')}</div></div>`;
+  }
+  return h;
+}
+function dueFrom(f) { const base = todayISO(); if (f.fu === 'tomorrow') return addDays(base, 1); if (f.fu === 'week') return addDays(base, 7); if (f.fu === 'month') return addMonths(base, 1); if (f.fu === 'pick') return f.fuDate || ''; return ''; }
+
+V.note = () => { const f = S.nf; return `${topBar(f.id ? 'Edit note' : 'New note', { back: true })}
+  <form class="form" data-form="note" novalidate>
+  <div class="group"><span class="lbl">Who you spoke with</span><div class="chips" id="whosel">${whoSel()}</div><input type="search" id="nfsearch" placeholder="Search your people" autocomplete="off" aria-label="Search people" value="${esc(S.nfq)}"><div id="whosug">${whoSug()}</div></div>
+  <div class="group"><div class="field"><span class="lbl">Where</span>${picker('nf', 'place', 'places', false)}</div><div class="field"><label for="n-date">When</label><input type="date" id="n-date" data-root="nf" data-bind="date" value="${esc(f.date)}" max="${todayISO()}"></div></div>
+  <div class="group"><div class="field"><label for="n-text">What you talked about</label><textarea id="n-text" data-root="nf" data-bind="text" placeholder="Kids, plans, news, anything worth remembering">${esc(f.text)}</textarea><span class="hint">Tip: tap the microphone on your keyboard to speak it instead.</span></div></div>
+  <div class="group"><span class="lbl">Follow-up</span><div id="fublock" class="form" style="gap:12px">${fuBlock()}</div></div>
+  ${f.id ? `<div class="group">${S.editConfirm ? `<div class="confirm">Delete this note and its follow-up?<div class="btns"><button type="button" class="btn danger" data-act="delnote">Delete</button><button type="button" class="btn ghost" data-act="canceldel">Keep</button></div></div>` : `<button type="button" class="btn danger" data-act="askdel">${ic('trash')}Delete note</button>`}</div>` : ''}
+  <p class="err" id="n-err" hidden></p>
+  <div class="savebar"><button type="submit" class="btn">${ic('check')}Save note</button></div></form>`; };
+
+/* add to profile */
+const AP_KINDS = [['kid', 'Kid', 'kid'], ['partner', 'Partner', 'heart'], ['pet', 'Pet', 'paw'], ['interest', 'Interest', 'star'], ['update', 'Life update', 'sparkle']];
+V.addto = () => {
+  const a = S.ap; const p = person(a.personId);
+  let form = '';
+  if (a.kind === 'kid') form = `<div class="rowin"><input type="text" id="ap-name" placeholder="Name" aria-label="Kid's name" data-root="ap" data-bind="name" value="${esc(a.name)}"><input type="number" class="yr" inputmode="numeric" placeholder="Birth year" aria-label="Birth year" data-root="ap" data-bind="year" value="${esc(a.year)}"></div>`;
+  if (a.kind === 'partner') form = `<input type="text" id="ap-name" placeholder="Partner's name" aria-label="Partner's name" data-root="ap" data-bind="name" value="${esc(a.name)}">`;
+  if (a.kind === 'pet') form = `<input type="text" id="ap-name" placeholder="Pet's name" aria-label="Pet's name" data-root="ap" data-bind="name" value="${esc(a.name)}">${picker('ap', 'petType', 'pets', false)}`;
+  if (a.kind === 'interest') form = picker('ap', 'interests', 'interests', true);
+  if (a.kind === 'update') form = `<input type="text" id="ap-name" placeholder="New job, moved house, trip coming up…" aria-label="Life update" data-root="ap" data-bind="name" value="${esc(a.name)}">`;
+  return `${topBar('Note saved', {})}
+  <div class="form"><div class="group"><h3>${ic('sparkle')}Anything to add to a profile?</h3><p class="prose">If the chat turned up a new detail, file it now so it isn't buried in the note.</p>
+  ${a.personIds.length > 1 ? `<div class="field"><span class="lbl">Whose profile</span><div class="chips">${a.personIds.map(id => `<button type="button" class="chip ${a.personId === id ? 'on' : ''}" data-act="apwho" data-id="${id}">${a.personId === id ? ic('check') : ''}${esc(firstName((person(id) || {}).name))}</button>`).join('')}</div></div>` : ''}
+  <div class="chips">${AP_KINDS.map(([k, l, i]) => `<button type="button" class="chip ${a.kind === k ? 'on' : ''}" data-act="apkind" data-val="${k}">${ic(i)}${l}</button>`).join('')}</div>
+  ${a.kind ? `<div class="form" style="gap:10px">${form}<p class="err" id="ap-err" hidden></p><button type="button" class="btn soft" data-act="apsave">${ic('plus')}Add to ${esc(firstName(p ? p.name : ''))}'s profile</button></div>` : ''}</div>
+  <button class="btn block" data-act="apdone">${ic('check')}Done</button></div>`;
+};
+
+/* settings */
+V.settings = () => {
+  const s = S.data.settings, o = S.setOpen; const hasSample = S.data.people.some(p => p.sample);
+  const lockOpts = [[0, 'Straight away'], [5, 'After 5 minutes'], [60, 'After 1 hour']];
+  return `${topBar('Settings', { back: true, actions: themeBtn() })}<div class="form">
+  <div class="group"><h3>${ic('upload')}Backups</h3><p class="prose">Last saved to Drive ${esc(agoText(s.lastBackup))}. Saving makes a locked copy you can store in Google Drive and open on your laptop.</p><button class="btn soft" data-act="backup">${ic('upload')}Save to Drive</button></div>
+  <div class="group"><h3>${ic('edit')}Font for names</h3><p class="prose">Used for the app title and people's names.</p><div class="form" style="gap:8px">${FONTS.map(([k, l, d, css]) => { const on = curFont() === k; return `<button class="fontopt ${on ? 'on' : ''}" data-act="font" data-val="${k}" aria-pressed="${on}"><span class="smp" style="font-family:${css}${k === 'caveat' ? ';font-size-adjust:.56' : ''}">My Black Book<span class="fl">${l} · ${d}</span></span>${on ? `<span class="ok">${ic('check')}</span>` : ''}</button>`; }).join('')}</div></div>
+  <div class="group"><h3>${ic('clock')}Auto-lock</h3><p class="prose">How soon the app locks after you leave it.</p><div class="chips">${lockOpts.map(([m, l]) => `<button class="chip ${s.autoLock === m ? 'on' : ''}" data-act="autolock" data-val="${m}">${s.autoLock === m ? ic('check') : ''}${l}</button>`).join('')}</div></div>
+  <div class="group"><h3>${ic('lock')}PIN and passphrase</h3>
+    ${o === 'pin' ? `<form class="form" data-form="cpin" novalidate style="gap:10px"><div class="field"><label for="c-pass">Your passphrase</label><input id="c-pass" type="password" autocomplete="off" autocapitalize="off"></div><div class="pair"><div class="field"><label for="c-pin">New PIN</label><input id="c-pin" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></div><div class="field"><label for="c-pin2">Type it again</label><input id="c-pin2" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></div></div><p class="err" id="c-err" hidden></p><div class="pair"><button type="submit" class="btn" id="c-go">Change PIN</button><button type="button" class="btn ghost" data-act="setopen" data-val="">Cancel</button></div></form>`
+    : o === 'pass' ? `<form class="form" data-form="cpass" novalidate style="gap:10px"><div class="field"><label for="c-old">Current passphrase</label><input id="c-old" type="password" autocomplete="off" autocapitalize="off"></div><div class="field"><label for="c-new">New passphrase</label><input id="c-new" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="linkbtn" style="align-self:flex-start;padding-left:0" data-act="suggest2">Suggest one for me</button></div><div class="field"><label for="c-new2">Type it again</label><input id="c-new2" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"></div><p class="hint">Backups saved before this change still open with your old passphrase. Save a new backup afterwards.</p><p class="err" id="c-err" hidden></p><div class="pair"><button type="submit" class="btn" id="c-go">Change passphrase</button><button type="button" class="btn ghost" data-act="setopen" data-val="">Cancel</button></div></form>`
+    : `<div class="pair"><button class="btn ghost" data-act="setopen" data-val="pin">Change PIN</button><button class="btn ghost" data-act="setopen" data-val="pass">Change passphrase</button></div><p class="hint">After ${MAX_TRIES} wrong PINs, the app asks for your passphrase instead.</p>`}</div>
+  <div class="group"><h3>${ic('list')}Pick lists</h3><p class="prose">Remove options you added by mistake. People who already have them keep them.</p><button class="btn ghost" data-act="go" data-view="lists">Edit pick lists</button></div>
+  ${hasSample ? `<div class="group"><h3>${ic('users')}Sample people</h3>${o === 'sample' ? `<div class="confirm">Remove all sample people and their notes?<div class="btns"><button class="btn danger" data-act="rmsample">Remove</button><button class="btn ghost" data-act="setopen" data-val="">Keep</button></div></div>` : `<p class="prose">Clear them out when you're ready to add your own people.</p><button class="btn ghost" data-act="setopen" data-val="sample">Remove sample people</button>`}</div>` : ''}
+  <div class="group"><h3>${ic('trash')}Erase this device</h3>${o === 'erase' ? `<div class="confirm">This deletes your whole book from this device. Only a backup can bring it back. Type ERASE to confirm.<input type="text" id="erase-in" autocomplete="off" autocapitalize="characters" aria-label="Type ERASE"><div class="btns"><button class="btn danger" data-act="erase">Erase</button><button class="btn ghost" data-act="setopen" data-val="">Cancel</button></div></div>` : `<button class="btn danger" data-act="setopen" data-val="erase">Erase everything</button>`}</div>
+  <p class="prose" style="text-align:center;padding:4px 10px">Your book is locked and stored only on this device. Nothing is sent anywhere unless you save a backup.</p></div>`;
+};
+V.lists = () => `${topBar('Pick lists', { back: true })}<div class="form">${Object.keys(LIST_NAMES).map(k => `<div class="group"><h3>${esc(LIST_NAMES[k])}</h3>${S.data.lists[k].length ? `<div class="chips">${S.data.lists[k].map((o, i) => `<button class="chip" data-act="rmopt" data-k="${k}" data-i="${i}" aria-label="Remove ${esc(o)}">${esc(o)} ${ic('x')}</button>`).join('')}</div>` : '<span class="hint">Nothing yet. Options you add while editing show up here.</span>'}</div>`).join('')}</div>`;
+
+/* ---------- render ---------- */
+function render() {
+  const v = V[S.view] || V.home;
+  if (!S.data && !['start', 'setup', 'lock', 'pass', 'openbk', 'bkchoice', 'restorepin'].includes(S.view)) S.view = S.vault ? 'lock' : 'start';
+  app.innerHTML = (V[S.view] || v)();
+  afterRender();
+}
+function fitTitles() {
+  document.querySelectorAll('.top h1').forEach(h => {
+    h.style.fontSize = ''; let size = parseFloat(getComputedStyle(h).fontSize);
+    while (h.scrollWidth > h.clientWidth + 1 && size > 14) { size -= 1; h.style.fontSize = size + 'px'; }
+  });
+}
+function afterRender() {
+  fitTitles();
+  if (S.view === 'pass') setTimeout(() => $('#passin') && $('#passin').focus(), 50);
+  if (!S.data) return;
+  const t = todayISO();
+  if (S.view === 'home' && !S.q) { const has = S.data.people.some(p => { const nb = nextBday(p.birthday); return nb && nb.days === 0; }); if (has && !S.celebrated['home' + t]) { S.celebrated['home' + t] = 1; setTimeout(confetti, 250); } }
+  if (S.view === 'person') { const p = person(S.pid); const nb = p && nextBday(p.birthday); if (nb && nb.days === 0 && !S.celebrated[p.id + t]) { S.celebrated[p.id + t] = 1; setTimeout(confetti, 250); } }
+}
+function showErr(id, msg) { const el = document.getElementById(id); if (el) { el.textContent = msg; el.hidden = !msg; } }
+function busy(id, on, label) { const b = document.getElementById(id); if (!b) return; if (on) { b.dataset.label = b.innerHTML; b.disabled = true; b.innerHTML = `<span class="spin"></span>${label || 'Working…'}`; } else { b.disabled = false; if (b.dataset.label) b.innerHTML = b.dataset.label; } }
+const cryptoOk = () => !!(window.crypto && crypto.subtle);
+const val = id => (document.getElementById(id) || {}).value || '';
+
+/* ---------- open / lock ---------- */
+async function openWithKey(raw, vault) {
+  S.raw = raw; S.ck = await importDataKey(raw);
+  S.data = migrate(await decryptData(S.ck, vault.data));
+  S.readOnly = false; S.stack = []; S.q = ''; S.filter = 'All'; S.gateMsg = '';
+  S.lastActive = Date.now(); S.hiddenAt = 0;
+  try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
+  if (S.pending === 'note') { S.pending = null; S.view = 'home'; render(); A.newnote(); return; }
+  S.view = 'home'; render();
+}
+function lock(msg) {
+  const wasRO = S.readOnly;
+  S.raw = null; S.ck = null; S.data = null; S.form = null; S.nf = null; S.ap = null; S.bk = null; S.readOnly = false; S.roSaved = null; S.stack = []; S.fab = false; S.setOpen = null; S.adding = null; S.q = '';
+  S.gateMsg = msg || ''; S.pinEntry = ''; S.pinBusy = false;
+  S.view = S.vault ? (S.vault.fails >= MAX_TRIES ? 'pass' : 'lock') : 'start';
+  render();
+  if (wasRO) toast('Backup closed');
+}
+
+/* ---------- calendar + backup ---------- */
+function icsEsc(s) { return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n'); }
+async function shareOrDownload(blob, name, title) {
+  try { const file = new File([blob], name, { type: blob.type }); if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title }); return 'shared'; } }
+  catch (e) { if (e && e.name === 'AbortError') return 'cancelled'; }
+  try { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000); return 'downloaded'; } catch (e) { return 'failed'; }
+}
+async function addToCalendar(title, date, yearly) {
+  if (IN_FRAME) { toast('Adding to your calendar works once the app is installed.'); return; }
+  const ds = date.replace(/-/g, ''), de = addDays(date, 1).replace(/-/g, '');
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//My Black Book//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT', `UID:${uid()}@my-black-book`, `DTSTAMP:${stamp}`, `DTSTART;VALUE=DATE:${ds}`, `DTEND;VALUE=DATE:${de}`, yearly ? 'RRULE:FREQ=YEARLY' : '', `SUMMARY:${icsEsc(title)}`, 'TRANSP:TRANSPARENT', 'BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsEsc(title)}`, 'TRIGGER:-PT15H', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].filter(Boolean).join('\r\n');
+  const r = await shareOrDownload(new Blob([ics], { type: 'text/calendar' }), `${title.replace(/[^\w ]+/g, '').trim().replace(/\s+/g, '-').toLowerCase() || 'event'}.ics`, title);
+  if (r === 'shared') toast('Pick Calendar to add it');
+  else if (r === 'downloaded') toast('Tap Open on the download, then choose Calendar to add it.');
+  else if (r === 'failed') toast("Couldn't create the calendar event.");
+}
+async function doBackup() {
+  if (S.readOnly) return;
+  if (IN_FRAME) { toast('Saving to Drive works once the app is installed.'); return; }
+  const saved = new Date().toISOString();
+  const prev = S.data.settings.lastBackup; S.data.settings.lastBackup = saved;
+  const payload = { app: 'my-black-book', v: 1, saved, pass: S.vault.pass, data: await encryptData(S.ck, S.data) };
+  const r = await shareOrDownload(new Blob([JSON.stringify(payload)], { type: 'text/plain' }), `my-black-book-backup-${todayISO()}.txt`, 'My Black Book backup');
+  if (r === 'cancelled' || r === 'failed') { S.data.settings.lastBackup = prev; toast(r === 'failed' ? "Couldn't save the backup." : 'Backup not saved'); return; }
+  await persist(); render();
+  toast(r === 'shared' ? 'Backup ready. Pick Drive to save it.' : 'Backup downloaded. Move it to your Drive folder.');
+}
+
+/* ---------- actions ---------- */
+const A = {
+  go: el => go(el.dataset.view),
+  back: () => backAction(),
+  theme: () => { const t = isDark() ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', t); prefSet('mbb-theme', t); const keepScroll = window.scrollY; render(); window.scrollTo(0, keepScroll); },
+  suggest: () => { const s = suggestPhrase(); $('#s-pass').value = s; $('#s-pass2').value = ''; $('#s-pass2').focus(); },
+  suggest2: () => { const s = suggestPhrase(); $('#c-new').value = s; $('#c-new2').value = ''; $('#c-new2').focus(); },
+  key: el => { if (S.pinBusy || S.pinEntry.length >= 8) return; S.pinEntry += el.dataset.val; showErr('g-err', ''); updateDots(); if (S.vault && S.vault.pinLen && S.pinEntry.length === S.vault.pinLen) setTimeout(() => FORMS.pin(), 120); },
+  keydel: () => { if (S.pinBusy) return; S.pinEntry = S.pinEntry.slice(0, -1); updateDots(); },
+  keyok: () => FORMS.pin(),
+  usepass: () => replaceView('pass'),
+  usepin: () => { S.pinEntry = ''; replaceView('lock'); },
+  lock: () => lock(),
+  closeview: () => lock(),
+  fab: () => { S.fab = !S.fab; render(); },
+  filter: el => { S.filter = el.dataset.val; $('#homebody').innerHTML = homeBody(); },
+  open: el => { if (!el.dataset.id) return; go('person', { pid: el.dataset.id }); },
+  backup: () => doBackup(),
+  fudone: async (el, e) => { e.stopPropagation(); const f = S.data.followups.find(x => x.id === el.dataset.id); if (!f) return; f.done = true; touch(f.personIds); await persist(); const y = window.scrollY; render(); window.scrollTo(0, y); toast('Nice, marked as done'); },
+  calbday: () => { const p = person(S.pid); const nb = nextBday(p.birthday); if (nb) addToCalendar(`${p.name}'s birthday`, nb.iso, true); },
+  calfu: (el, e) => { e.stopPropagation(); const f = S.data.followups.find(x => x.id === el.dataset.id); if (f) addToCalendar(`Follow up: ${joinAnd(namesOf(f.personIds, true))}`, f.due, false); },
+
+  newperson: () => { const f = blankPerson(); if (S.filter !== 'All') f.labels = [S.filter]; f.bd = { d: '', m: '', y: '' }; go('edit', { form: f, adding: null, editConfirm: false, teamSport: 'AFL' }); setTimeout(() => $('#e-name') && $('#e-name').focus(), 60); },
+  edit: () => { const p = person(S.pid); const f = clone(p); f.bd = p.birthday ? { d: String(p.birthday.d), m: String(p.birthday.m), y: p.birthday.y ? String(p.birthday.y) : '' } : { d: '', m: '', y: '' }; go('edit', { form: f, adding: null, editConfirm: false, teamSport: 'AFL' }); },
+  pick: el => { const pk = el.closest('[data-picker]'); const root = ROOTS[pk.dataset.root](); const path = pk.dataset.picker; const v = el.dataset.val; if (pk.dataset.multi === '1') { const arr = getP(root, path) || []; setP(root, path, arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v]); } else setP(root, path, getP(root, path) === v ? '' : v); const r = pk.dataset.root; redrawPicker(pk); onPicked(r, path); },
+  startadd: el => { const pk = el.closest('[data-picker]'); const r = pk.dataset.root, path = pk.dataset.picker; S.adding = r + ':' + path; redrawPicker(pk); const np = findPicker(r, path); np && np.querySelector('.addin').focus(); },
+  addopt: el => { const pk = el.closest('[data-picker]'); const input = pk.querySelector('.addin'); const v = (input ? input.value : '').trim(); const r = pk.dataset.root, path = pk.dataset.picker, key = pk.dataset.list; S.adding = null; if (v) { const list = S.data.lists[key]; let ex = list.find(o => o.toLowerCase() === v.toLowerCase()); if (!ex) { list.push(v); ex = v; persistSoon(); } const root = ROOTS[r](); if (pk.dataset.multi === '1') { const arr = getP(root, path) || []; if (!arr.includes(ex)) setP(root, path, [...arr, ex]); } else setP(root, path, ex); } redrawPicker(pk); onPicked(r, path); },
+  addrow: el => { const k = el.dataset.k; S.form[k].push(blankRow[k]()); $('#rows-' + k).innerHTML = rowsHTML(k); const last = $('#rows-' + k).lastElementChild; const inp = last && last.querySelector('input,select'); inp && inp.focus(); },
+  rmrow: el => { const k = el.dataset.k; S.form[k].splice(+el.dataset.i, 1); $('#rows-' + k).innerHTML = rowsHTML(k); },
+  sport: el => { S.teamSport = el.dataset.val; S.adding = null; $('#sports').innerHTML = sportChips(); $('#teampick').innerHTML = picker('form', 'teams.' + S.teamSport, 'teams_' + S.teamSport, true); },
+  rmteam: el => { const sp = el.dataset.sport, t = el.dataset.team; S.form.teams[sp] = (S.form.teams[sp] || []).filter(x => x !== t); refreshTeams(); if (sp === S.teamSport) $('#teampick').innerHTML = picker('form', 'teams.' + sp, 'teams_' + sp, true); },
+  rmphoto: () => { S.form.photo = null; $('#photobox').innerHTML = photoBox(); },
+  askdel: () => { S.editConfirm = true; const y = window.scrollY; render(); window.scrollTo(0, y); },
+  canceldel: () => { S.editConfirm = false; const y = window.scrollY; render(); window.scrollTo(0, y); },
+  delperson: async () => {
+    const id = S.form.id; const p = person(id); if (!p) return;
+    const d = S.data;
+    d.people = d.people.filter(x => x.id !== id);
+    d.people.forEach(o => { o.connections = o.connections.filter(c => c.id !== id); });
+    d.notes.forEach(n => { n.personIds = n.personIds.filter(x => x !== id); });
+    const gone = new Set(d.notes.filter(n => !n.personIds.length).map(n => n.id));
+    d.notes = d.notes.filter(n => n.personIds.length);
+    d.followups.forEach(f => { f.personIds = f.personIds.filter(x => x !== id); });
+    d.followups = d.followups.filter(f => f.personIds.length && !gone.has(f.noteId));
+    await persist(); S.editConfirm = false; S.stack = []; S.view = 'home'; render(); toast(`${p.name} deleted`);
+  },
+
+  noteabout: () => A.newnote([S.pid]),
+  newnote: ids => { const list = Array.isArray(ids) ? ids : []; go('note', { nf: { id: null, personIds: [...list], place: '', date: todayISO(), text: '', fu: 'none', fuDate: '', fuText: '', fuFor: 'all' }, nfq: '', adding: null, editConfirm: false }); },
+  editnote: el => { const n = S.data.notes.find(x => x.id === el.dataset.id); if (!n) return; const fu = S.data.followups.find(x => x.noteId === n.id && !x.done); go('note', { nf: { id: n.id, personIds: [...n.personIds], place: n.place, date: n.date, text: n.text, fu: fu ? 'pick' : 'none', fuDate: fu ? fu.due : '', fuText: fu ? fu.text : '', fuFor: fu && fu.personIds.length === 1 && n.personIds.length > 1 ? fu.personIds[0] : 'all' }, nfq: '', adding: null, editConfirm: false }); },
+  nfadd: el => { S.nf.personIds.push(el.dataset.id); S.nfq = ''; const s = $('#nfsearch'); if (s) s.value = ''; refreshWho(); },
+  nfrm: el => { S.nf.personIds = S.nf.personIds.filter(x => x !== el.dataset.id); if (S.nf.fuFor === el.dataset.id) S.nf.fuFor = 'all'; refreshWho(); },
+  fuq: el => { S.nf.fu = el.dataset.val; if (S.nf.fu === 'pick' && !S.nf.fuDate) S.nf.fuDate = addDays(todayISO(), 7); $('#fublock').innerHTML = fuBlock(); },
+  fufor: el => { S.nf.fuFor = el.dataset.val; $('#fublock').innerHTML = fuBlock(); },
+  delnote: async () => { const id = S.nf.id; S.data.notes = S.data.notes.filter(n => n.id !== id); S.data.followups = S.data.followups.filter(f => f.noteId !== id); await persist(); S.editConfirm = false; toast('Note deleted'); backAction(); },
+
+  apwho: el => { S.ap.personId = el.dataset.id; S.ap.interests = clone((person(el.dataset.id) || {}).interests || []); render(); },
+  apkind: el => { const k = el.dataset.val; S.ap.kind = S.ap.kind === k ? null : k; S.ap.name = ''; S.ap.year = ''; S.ap.petType = ''; S.ap.interests = clone((person(S.ap.personId) || {}).interests || []); render(); const n = $('#ap-name'); n && n.focus(); },
+  apsave: async () => {
+    const a = S.ap, p = person(a.personId); if (!p) return; const nm = (a.name || '').trim();
+    if (a.kind === 'kid') { if (!nm) return showErr('ap-err', "Add the kid's name."); p.kids.push({ name: nm, year: a.year ? Number(a.year) : '' }); }
+    if (a.kind === 'partner') { if (!nm) return showErr('ap-err', "Add their partner's name."); p.partner = nm; }
+    if (a.kind === 'pet') { if (!nm && !a.petType) return showErr('ap-err', 'Add a name or pick a type.'); p.pets.push({ name: nm, type: a.petType || '' }); }
+    if (a.kind === 'interest') p.interests = [...a.interests];
+    if (a.kind === 'update') { if (!nm) return showErr('ap-err', 'Add a few words about the update.'); p.lifeUpdates.push({ date: todayISO(), text: nm }); }
+    p.updated = Date.now(); await persist(); a.kind = null; render(); toast(`Added to ${firstName(p.name)}'s profile`);
+  },
+  apdone: () => { const id = S.ap.personId; S.ap = null; replaceView('person', { pid: id }); },
+
+  font: el => { applyFont(el.dataset.val); prefSet('mbb-font', el.dataset.val); const y = window.scrollY; render(); window.scrollTo(0, y); toast(`Names now in ${FONTS.find(x => x[0] === el.dataset.val)[1]}`); },
+  autolock: async el => { S.data.settings.autoLock = Number(el.dataset.val); await persist(); render(); toast('Auto-lock updated'); },
+  setopen: el => { S.setOpen = el.dataset.val || null; const y = window.scrollY; render(); window.scrollTo(0, y); },
+  rmopt: async el => { S.data.lists[el.dataset.k].splice(+el.dataset.i, 1); await persist(); const y = window.scrollY; render(); window.scrollTo(0, y); },
+  rmsample: async () => {
+    const d = S.data; const ids = new Set(d.people.filter(p => p.sample).map(p => p.id));
+    d.people = d.people.filter(p => !ids.has(p.id)); d.people.forEach(o => { o.connections = o.connections.filter(c => !ids.has(c.id)); });
+    d.notes.forEach(n => { n.personIds = n.personIds.filter(x => !ids.has(x)); }); const gone = new Set(d.notes.filter(n => !n.personIds.length).map(n => n.id)); d.notes = d.notes.filter(n => n.personIds.length);
+    d.followups.forEach(f => { f.personIds = f.personIds.filter(x => !ids.has(x)); }); d.followups = d.followups.filter(f => f.personIds.length && !gone.has(f.noteId));
+    await persist(); S.setOpen = null; render(); toast('Sample people removed');
+  },
+  erase: async () => { if (val('erase-in').trim().toUpperCase() !== 'ERASE') { toast('Type ERASE to confirm'); return; } await store.del('vault'); S.vault = null; lock(); toast('Erased from this device'); },
+
+  viewonly: () => { const b = S.bk; S.raw = null; S.ck = null; S.data = migrate(b.data); S.readOnly = true; S.roSaved = b.json.saved; S.bk = null; S.stack = []; S.pushed = 0; S.q = ''; S.filter = 'All'; S.lastActive = Date.now(); S.view = 'home'; render(); }
+};
+
+/* ---------- forms ---------- */
+const FORMS = {
+  async setup() {
+    const pin = val('s-pin'), pin2 = val('s-pin2'), pass = val('s-pass'), pass2 = val('s-pass2');
+    if (!cryptoOk()) return showErr('s-err', "This browser can't lock your book securely. Open it in Chrome.");
+    if (!/^\d{4,8}$/.test(pin)) return showErr('s-err', 'Your PIN needs 4 to 8 digits.');
+    if (pin !== pin2) return showErr('s-err', "The two PINs don't match.");
+    if (pass.trim().length < 12) return showErr('s-err', 'Your passphrase needs at least 12 characters. Try "Suggest one for me".');
+    if (pass !== pass2) return showErr('s-err', "The two passphrases don't match.");
+    if (!$('#s-saved').checked) return showErr('s-err', 'Tick the box once your passphrase is saved somewhere safe.');
+    showErr('s-err', ''); busy('s-go', true, 'Locking it up…');
+    try {
+      const raw = rand(32);
+      const [pw, ppw] = await Promise.all([wrapKey(raw, pin), wrapKey(raw, pass)]);
+      const ck = await importDataKey(raw);
+      const vault = { v: 1, pin: pw, pass: ppw, pinLen: pin.length, fails: 0, created: Date.now(), data: await encryptData(ck, newData($('#s-sample').checked)) };
+      await store.set('vault', vault); S.vault = vault; S.pushed = 0;
+      await openWithKey(raw, vault); toast('Your book is ready');
+    } catch (e) { console.error(e); busy('s-go', false); showErr('s-err', 'Something went wrong setting up. Try again.'); }
+  },
+  async pin() {
+    if (S.pinBusy) return;
+    const pin = S.pinEntry;
+    if (!/^\d{4,8}$/.test(pin)) return showErr('g-err', 'Enter your 4 to 8 digit PIN.');
+    showErr('g-err', ''); S.pinBusy = true; const d = $('#dots'); d && d.classList.add('checking');
+    let raw = null;
+    try { raw = await unwrapKey(S.vault.pin, pin); } catch (e) { raw = null; }
+    S.pinBusy = false;
+    if (!raw) {
+      S.vault.fails = (S.vault.fails || 0) + 1; await store.set('vault', S.vault);
+      S.pinEntry = '';
+      if (S.vault.fails >= MAX_TRIES) { replaceView('pass'); return; }
+      const dd = $('#dots'); if (dd) { dd.classList.remove('checking'); updateDots(); dd.classList.remove('shake'); void dd.offsetWidth; dd.classList.add('shake'); }
+      try { navigator.vibrate && navigator.vibrate(120); } catch (e) {}
+      const left = MAX_TRIES - S.vault.fails;
+      return showErr('g-err', `That PIN didn't match. ${left} ${left === 1 ? 'try' : 'tries'} left before you'll need your passphrase.`);
+    }
+    S.pinEntry = '';
+    let changed = false;
+    if (S.vault.fails) { S.vault.fails = 0; changed = true; }
+    if (!S.vault.pinLen) { S.vault.pinLen = pin.length; changed = true; }
+    if (changed) await store.set('vault', S.vault);
+    try { await openWithKey(raw, S.vault); } catch (e) { console.error(e); showErr('g-err', "Your book couldn't be opened."); }
+  },
+  async pass() {
+    const pass = val('passin'); if (!pass) return showErr('g-err', 'Enter your passphrase.');
+    showErr('g-err', ''); busy('g-go', true, 'Unlocking…');
+    let raw = null; try { raw = await unwrapKey(S.vault.pass, pass); } catch (e) { raw = null; }
+    if (!raw) { busy('g-go', false); $('#passin').select(); return showErr('g-err', "That passphrase didn't match. Check for typos and try again."); }
+    S.vault.fails = 0; await store.set('vault', S.vault);
+    try { await openWithKey(raw, S.vault); } catch (e) { console.error(e); busy('g-go', false); showErr('g-err', "Your book couldn't be opened."); }
+  },
+  async openbk() {
+    const file = ($('#bk-file').files || [])[0]; const pass = val('bk-pass');
+    if (!file) return showErr('bk-err', 'Pick your backup file first.');
+    if (!pass) return showErr('bk-err', 'Enter your passphrase.');
+    showErr('bk-err', ''); busy('bk-go', true, 'Opening…');
+    let json; try { json = JSON.parse(await file.text()); } catch (e) { json = null; }
+    if (!json || json.app !== 'my-black-book' || !json.pass || !json.data) { busy('bk-go', false); return showErr('bk-err', "That file isn't a My Black Book backup."); }
+    let raw; try { raw = await unwrapKey(json.pass, pass); } catch (e) { busy('bk-go', false); return showErr('bk-err', "That passphrase didn't open this backup. Check for typos, or try the passphrase you had when it was saved."); }
+    try { const data = await decryptData(await importDataKey(raw), json.data); S.bk = { json, raw, data }; replaceView('bkchoice'); }
+    catch (e) { busy('bk-go', false); showErr('bk-err', 'This backup looks damaged. Try another one.'); }
+  },
+  async restore() {
+    const pin = val('r-pin'), pin2 = val('r-pin2');
+    if (!/^\d{4,8}$/.test(pin)) return showErr('r-err', 'Your PIN needs 4 to 8 digits.');
+    if (pin !== pin2) return showErr('r-err', "The two PINs don't match.");
+    showErr('r-err', ''); busy('r-go', true, 'Setting up…');
+    try {
+      const b = S.bk; const vault = { v: 1, pin: await wrapKey(b.raw, pin), pass: b.json.pass, pinLen: pin.length, fails: 0, created: Date.now(), data: b.json.data };
+      await store.set('vault', vault); S.vault = vault; S.bk = null; S.pushed = 0;
+      await openWithKey(b.raw, vault); toast('Your book is on this device');
+    } catch (e) { console.error(e); busy('r-go', false); showErr('r-err', 'Something went wrong. Try again.'); }
+  },
+  async person() {
+    const f = S.form;
+    if (!f.name.trim()) { showErr('e-err', 'Add their name first.'); $('#e-name').focus(); window.scrollTo(0, 0); return; }
+    const p = clone(f); delete p.bd;
+    p.name = p.name.trim(); p.nickname = p.nickname.trim();
+    p.birthday = f.bd.d && f.bd.m ? { d: Number(f.bd.d), m: Number(f.bd.m), y: f.bd.y ? Number(f.bd.y) : null } : null;
+    p.kids = p.kids.filter(k => k.name.trim()).map(k => ({ name: k.name.trim(), year: k.year ? Number(k.year) : '' }));
+    p.pets = p.pets.filter(x => x.name.trim() || x.type).map(x => ({ name: x.name.trim(), type: x.type }));
+    p.connections = p.connections.filter(c => c.id);
+    for (const sp of Object.keys(p.teams || {})) if (!p.teams[sp] || !p.teams[sp].length) delete p.teams[sp];
+    p.lifeUpdates = p.lifeUpdates.filter(l => l.text.trim()).map(l => ({ text: l.text.trim(), date: l.date || todayISO() }));
+    p.updated = Date.now();
+    const isNew = !p.id;
+    if (isNew) { p.id = uid(); p.created = Date.now(); S.data.people.push(p); } else { const i = S.data.people.findIndex(x => x.id === p.id); S.data.people[i] = p; }
+    await persist(); S.form = null; S.adding = null;
+    replaceView('person', { pid: p.id }); toast(isNew ? `${firstName(p.name)} added` : 'Saved');
+  },
+  async note() {
+    const f = S.nf;
+    if (!f.personIds.length) { showErr('n-err', 'Pick at least one person.'); return; }
+    if (!f.text.trim()) { showErr('n-err', 'Add a few words about what you talked about.'); $('#n-text').focus(); return; }
+    const due = f.fu !== 'none' ? dueFrom(f) : '';
+    if (f.fu !== 'none' && !due) { showErr('n-err', 'Pick a date for the follow-up.'); return; }
+    const isNew = !f.id;
+    const note = isNew ? { id: uid(), created: Date.now() } : S.data.notes.find(n => n.id === f.id);
+    Object.assign(note, { personIds: [...f.personIds], place: f.place || '', date: f.date || todayISO(), text: f.text.trim() });
+    if (isNew) S.data.notes.push(note);
+    let fu = S.data.followups.find(x => x.noteId === note.id && !x.done);
+    if (due) { if (!fu) { fu = { id: uid(), noteId: note.id, done: false }; S.data.followups.push(fu); } Object.assign(fu, { personIds: f.fuFor === 'all' || !f.personIds.includes(f.fuFor) ? [...f.personIds] : [f.fuFor], due, text: f.fuText.trim() }); }
+    else if (fu) S.data.followups = S.data.followups.filter(x => x !== fu);
+    touch(f.personIds); await persist(); toast('Note saved');
+    if (isNew) { const pid = f.personIds[0]; S.nf = null; replaceView('addto', { ap: { personId: pid, personIds: [...note.personIds], kind: null, name: '', year: '', petType: '', interests: clone((person(pid) || {}).interests || []) } }); }
+    else { S.nf = null; backAction(); }
+  },
+  async cpin() {
+    const pass = val('c-pass'), pin = val('c-pin'), pin2 = val('c-pin2');
+    if (!/^\d{4,8}$/.test(pin)) return showErr('c-err', 'Your new PIN needs 4 to 8 digits.');
+    if (pin !== pin2) return showErr('c-err', "The two PINs don't match.");
+    busy('c-go', true, 'Changing…');
+    try { await unwrapKey(S.vault.pass, pass); } catch (e) { busy('c-go', false); return showErr('c-err', "That passphrase didn't match."); }
+    S.vault.pin = await wrapKey(S.raw, pin); S.vault.pinLen = pin.length; S.vault.fails = 0; await store.set('vault', S.vault); S.setOpen = null; render(); toast('PIN changed');
+  },
+  async cpass() {
+    const old = val('c-old'), nw = val('c-new'), nw2 = val('c-new2');
+    if (nw.trim().length < 12) return showErr('c-err', 'Your new passphrase needs at least 12 characters.');
+    if (nw !== nw2) return showErr('c-err', "The two new passphrases don't match.");
+    busy('c-go', true, 'Changing…');
+    try { await unwrapKey(S.vault.pass, old); } catch (e) { busy('c-go', false); return showErr('c-err', "Your current passphrase didn't match."); }
+    S.vault.pass = await wrapKey(S.raw, nw); await store.set('vault', S.vault); S.setOpen = null; render(); toast('Passphrase changed. Save a new backup.');
+  }
+};
+
+/* ---------- events ---------- */
+document.addEventListener('click', async e => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const fn = A[el.dataset.act]; if (!fn) return;
+  if (el.tagName === 'BUTTON' || el.dataset.act === 'open' || el.classList.contains('scrim')) e.preventDefault();
+  try { await fn(el, e); } catch (err) { console.error(err); toast('Something went wrong. Try again.'); }
+});
+document.addEventListener('submit', async e => {
+  const form = e.target.closest('[data-form]'); if (!form) return; e.preventDefault();
+  const fn = FORMS[form.dataset.form]; if (!fn) return;
+  try { await fn(); } catch (err) { console.error(err); toast('Something went wrong. Try again.'); }
+});
+document.addEventListener('input', e => {
+  const el = e.target;
+  if (el.dataset.bind) { const root = ROOTS[el.dataset.root] && ROOTS[el.dataset.root](); if (root) setP(root, el.dataset.bind, el.type === 'checkbox' ? el.checked : el.value); if (el.dataset.root === 'form' && el.dataset.bind === 'name' && !S.form.photo) { const pb = $('#photobox .avatar'); if (pb) pb.innerHTML = el.value ? initials(el.value) : ic('camera'); } }
+  if (el.id === 'q') { S.q = el.value; $('#homebody').innerHTML = homeBody(); }
+  if (el.id === 'nfsearch') { S.nfq = el.value; $('#whosug').innerHTML = whoSug(); }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('addin')) { e.preventDefault(); A.addopt(e.target); }
+  if (e.key === 'Enter' && e.target.id === 'nfsearch') { e.preventDefault(); const first = $('#whosug [data-act="nfadd"]'); if (first) A.nfadd(first); }
+  if (S.view === 'lock' && !(e.target.matches && e.target.matches('input,textarea,select'))) {
+    if (/^\d$/.test(e.key)) { e.preventDefault(); A.key({ dataset: { val: e.key } }); return; }
+    if (e.key === 'Backspace') { e.preventDefault(); A.keydel(); return; }
+    if (e.key === 'Enter') { e.preventDefault(); FORMS.pin(); return; }
+  }
+  if (e.key === 'Escape' && S.fab) { S.fab = false; render(); }
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('div[data-act="open"]')) { e.preventDefault(); A.open(e.target); }
+});
+document.addEventListener('change', async e => {
+  const el = e.target;
+  if (el.id === 'photo' && el.files && el.files[0]) { try { S.form.photo = await readPhoto(el.files[0]); $('#photobox').innerHTML = photoBox(); } catch (err) { toast("That photo couldn't be read. Try another."); } }
+});
+function readPhoto(file) {
+  return new Promise((res, rej) => { const img = new Image(); const url = URL.createObjectURL(file); img.onload = () => { const s = 256, c = document.createElement('canvas'); c.width = s; c.height = s; const x = c.getContext('2d'); const m = Math.min(img.width, img.height); x.drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, s, s); URL.revokeObjectURL(url); res(c.toDataURL('image/jpeg', .82)); }; img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('bad image')); }; img.src = url; });
+}
+
+/* ---------- auto-lock ---------- */
+const markActive = () => { S.lastActive = Date.now(); };
+['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(ev => document.addEventListener(ev, markActive, { passive: true }));
+function lockLimitMs() { if (!S.data) return 0; const m = S.readOnly ? 5 : S.data.settings.autoLock; return m * 60000; }
+document.addEventListener('visibilitychange', () => {
+  if (!S.data) return;
+  if (document.hidden) { S.hiddenAt = Date.now(); if (lockLimitMs() === 0) lock(); }
+  else { if (S.hiddenAt && Date.now() - S.hiddenAt >= lockLimitMs()) lock(); S.hiddenAt = 0; }
+});
+setInterval(() => { if (!S.data || document.hidden) return; const lim = lockLimitMs() || 300000; if (Date.now() - S.lastActive >= lim) lock(); }, 15000);
+
+/* ---------- boot ---------- */
+let fitT; window.addEventListener('resize', () => { clearTimeout(fitT); fitT = setTimeout(fitTitles, 100); });
+try { document.fonts && document.fonts.addEventListener && document.fonts.addEventListener('loadingdone', fitTitles); document.fonts.ready.then(fitTitles); } catch (e) {}
+(async function boot() {
+  applyTheme(prefGet('mbb-theme')); applyFont(prefGet('mbb-font'));
+  try { if (new URLSearchParams(location.search).get('action') === 'note') S.pending = 'note'; } catch (e) {}
+  S.vault = (await store.get('vault')) || null;
+  S.view = S.vault ? (S.vault.fails >= MAX_TRIES ? 'pass' : 'lock') : 'start';
+  render();
+  if ('serviceWorker' in navigator && !IN_FRAME && location.protocol === 'https:') { try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {} }
+})();
+</script>
+</body>
+</html>
