@@ -113,6 +113,12 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .sec .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:currentColor;margin-right:8px;vertical-align:1px}
 .chip .cnt{background:var(--accent-soft);color:var(--accent-text);border-radius:999px;font-size:12px;padding:0 7px;line-height:1.5}
 .chip.on .cnt{background:var(--accent-ink);color:var(--accent)}
+.hintcard{display:flex;align-items:center;gap:12px;margin-top:10px;padding:12px 14px;border-radius:var(--r-sm);background:var(--accent-soft);color:var(--accent-text);animation:rise .2s ease-out both}
+.hintcard .grow{flex:1;min-width:0;display:flex;flex-direction:column}
+.hintcard b{color:var(--ink);font-weight:800}
+.hintcard .grow span{font-size:13px;color:var(--muted)}
+.hintcard button{border:0;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:9px 14px;font-weight:800;cursor:pointer;white-space:nowrap}
+.hintcard.done{font-weight:700;font-size:14px}
 .teampick{border-top:1px dashed var(--line);padding-top:10px}
 
 .labels{display:flex;flex-wrap:wrap;gap:6px}
@@ -410,12 +416,15 @@ const DEFAULT_LISTS = {
   whereMet: ['Conference', 'Industry event', 'LinkedIn', 'Introduction', 'Meetup', 'Previous job'],
   localWhere: ['Gym', 'Hairdresser', 'Cafe', 'Neighbour', 'Sports club', 'Doctor'],
   localOften: ['Weekly', 'Fortnightly', 'Monthly', 'Every 6 weeks', 'Now and then'],
+  industries: ['Construction', 'Education', 'Finance', 'Government', 'Healthcare', 'Hospitality', 'IT and software', 'Legal', 'Logistics', 'Marketing', 'Media', 'Real estate', 'Retail', 'Trades', 'Studying', 'Not working'],
+  unis: ['ACU', 'Deakin', 'La Trobe', 'Monash', 'RMIT', 'Swinburne', 'University of Melbourne', 'Victoria University', 'Federation University', 'TAFE'],
+  parentRel: ['Mum', 'Dad', 'Parent', 'Step-parent'],
   places: ['Coffee', 'Meeting', 'Call', 'Event', 'Family thing', 'Dinner', 'Message', 'Appointment']
 };
-const LIST_NAMES = { labels: 'Labels', connectionHow: 'Linked as', pets: 'Pets', interests: 'Interests', teams_AFL: 'AFL teams', teams_NRL: 'NRL teams', teams_Cricket: 'Cricket teams', teams_Soccer: 'Soccer teams', teams_Basketball: 'Basketball teams', teams_Netball: 'Netball teams', teams_Other: 'Other teams', coffee: 'Coffee orders', dietary: 'Dietary', companies: 'Companies', relType: 'Work relationship', seniority: 'Seniority', contact: 'Preferred contact', workStyle: 'Working style', familyRelation: 'Family relation', whereMet: 'Where you met', localWhere: 'Where you see them', localOften: 'How often', places: 'Where you spoke' };
+const LIST_NAMES = { labels: 'Labels', connectionHow: 'Linked as', pets: 'Pets', interests: 'Interests', teams_AFL: 'AFL teams', teams_NRL: 'NRL teams', teams_Cricket: 'Cricket teams', teams_Soccer: 'Soccer teams', teams_Basketball: 'Basketball teams', teams_Netball: 'Netball teams', teams_Other: 'Other teams', coffee: 'Coffee orders', dietary: 'Dietary', companies: 'Companies', relType: 'Work relationship', seniority: 'Seniority', contact: 'Preferred contact', workStyle: 'Working style', familyRelation: 'Family relation', whereMet: 'Where you met', localWhere: 'Where you see them', localOften: 'How often', places: 'Where you spoke', industries: 'Industries', unis: 'Where they studied', parentRel: 'Parent' };
 const SPORTS = ['AFL', 'NRL', 'Cricket', 'Soccer', 'Basketball', 'Netball', 'Other'];
 const teamList = p => SPORTS.flatMap(sp => ((p.teams || {})[sp] || []).map(t => ({ sport: sp, team: t })));
-const blankPerson = () => ({ id: '', name: '', nickname: '', labels: [], birthday: null, photo: null, howMet: '', connections: [], partner: '', kids: [], pets: [], interests: [], teams: {}, coffee: { choice: '', note: '' }, dietary: { choices: [], note: '' }, favourites: '', lifeUpdates: [], mindful: '', work: { company: '', role: '', team: '', relType: '', seniority: '', contact: '', projects: '', style: [], styleNote: '' }, family: { relation: '' }, industry: { whereMet: '', workingOn: '', help: '' }, local: { where: '', often: '' }, sample: false, created: 0, updated: 0 });
+const blankPerson = () => ({ id: '', name: '', nickname: '', labels: [], birthday: null, photo: null, howMet: '', connections: [], partner: '', kids: [], pets: [], interests: [], teams: {}, coffee: { choice: '', note: '' }, dietary: { choices: [], note: '' }, favourites: '', lifeUpdates: [], mindful: '', work: { company: '', role: '', team: '', relType: '', seniority: '', contact: '', projects: '', style: [], styleNote: '' }, family: { relation: '' }, industry: { whereMet: '', workingOn: '', help: '' }, local: { where: '', often: '' }, occupation: { job: '', workplace: '', industry: '', studied: '', course: '' }, parents: [], sample: false, created: 0, updated: 0 });
 
 function newData(withSample) {
   const d = { v: 1, people: [], notes: [], followups: [], lists: clone(DEFAULT_LISTS), settings: { autoLock: 5, lastBackup: null } };
@@ -432,7 +441,7 @@ function addSample(d) {
   const priya = mk({ name: 'Priya Kumar', nickname: 'Pri', labels: ['Work', 'Friend'], birthday: { d: 14, m: 3, y: 1990 }, howMet: 'Started at the company on the same day', partner: 'Dev', kids: [{ name: 'Max', year: y - 6 }, { name: 'Ava', year: y - 3 }], interests: ['Pilates', 'Cooking', 'Hiking'], coffee: { choice: 'Oat latte', note: 'Extra hot' }, lifeUpdates: [{ date: addDays(t, -7), text: 'Training for a 10k in December' }], work: merge('work', { company: 'Kestrel Software', role: 'Product Manager', team: 'Platform', relType: 'Colleague', seniority: 'Peer', contact: 'Teams', projects: 'Website rebuild', style: ['Likes data'] }) });
   const lucy = mk({ name: 'Lucy Martin', labels: ['Family'], birthday: bd(inDays(9), y - 31), interests: ['Travel', 'Photography'], dietary: { choices: ['Vegetarian'], note: '' }, family: { relation: 'Cousin' }, lifeUpdates: [{ date: addDays(t, -21), text: 'Just moved to Fitzroy' }] });
   const josh = mk({ name: 'Josh Reid', labels: ['Family'], connections: [{ id: lucy.id, how: 'Partner of' }], interests: ['Surfing'], teams: { AFL: ['Geelong'], Cricket: ['Melbourne Renegades'] }, family: { relation: "Cousin's partner" }, favourites: 'Craft beer, anything on a barbecue' });
-  const sam = mk({ name: 'Sam Ellis', labels: ['Friend'], birthday: bd(new Date(), y - 33), howMet: 'Uni housemates', pets: [{ type: 'Dog', name: 'Biscuit' }], interests: ['Running', 'Music'], teams: { Netball: ['Melbourne Vixens'] }, coffee: { choice: 'Long black', note: '' } });
+  const sam = mk({ name: 'Sam Ellis', labels: ['Friend'], birthday: bd(new Date(), y - 33), howMet: 'Uni housemates', pets: [{ type: 'Dog', name: 'Biscuit' }], interests: ['Running', 'Music'], occupation: { job: 'Physio', workplace: 'Fitzroy Physio', industry: 'Healthcare', studied: 'La Trobe', course: 'Physiotherapy' }, parents: [{ name: 'Helen', rel: 'Mum' }], teams: { Netball: ['Melbourne Vixens'] }, coffee: { choice: 'Long black', note: '' } });
   const tom = mk({ name: 'Tom Nguyen', labels: ['Work'], birthday: bd(inDays(25)), partner: 'Anh', teams: { AFL: ['Collingwood'] }, mindful: 'His dad has been unwell. Check in gently.', work: merge('work', { company: 'Brightway Freight', role: 'Operations Director', relType: 'Partner', seniority: 'Exec', contact: 'Email', projects: 'Joint case study', style: ['Big picture', 'Prefers a quick chat'], styleNote: 'Calls work better than long emails' }) });
   const maria = mk({ name: 'Maria Lopez', labels: ['Industry'], interests: ['Wine'], industry: { whereMet: 'Conference', workingOn: 'Launching a podcast about B2B marketing', help: 'Could be a guest on her podcast' } });
   const kate = mk({ name: 'Kate Brown', labels: ['Local'], kids: [{ name: 'Olive', year: y - 10 }], local: { where: 'Hairdresser', often: 'Every 6 weeks' }, lifeUpdates: [{ date: addDays(t, -10), text: 'Off to Japan in January' }] });
@@ -455,7 +464,7 @@ function migrate(d) {
   if (Array.isArray(d.lists.teams)) { d.lists.teams_AFL = d.lists.teams; delete d.lists.teams; }
   for (const k in DEFAULT_LISTS) if (!Array.isArray(d.lists[k])) d.lists[k] = clone(DEFAULT_LISTS[k]);
   d.settings = Object.assign({ autoLock: 5, lastBackup: null }, d.settings || {});
-  d.people = (d.people || []).map(p => { const b = blankPerson(); const out = Object.assign(b, p); ['work', 'family', 'industry', 'local', 'coffee', 'dietary'].forEach(k => { out[k] = Object.assign(blankPerson()[k], p[k] || {}); }); out.teams = Object.assign({}, p.teams || {}); if (p.team) { out.teams.AFL = [...new Set([...(out.teams.AFL || []), p.team])]; } delete out.team; return out; });
+  d.people = (d.people || []).map(p => { const b = blankPerson(); const out = Object.assign(b, p); ['work', 'family', 'industry', 'local', 'coffee', 'dietary', 'occupation'].forEach(k => { out[k] = Object.assign(blankPerson()[k], p[k] || {}); }); out.teams = Object.assign({}, p.teams || {}); if (p.team) { out.teams.AFL = [...new Set([...(out.teams.AFL || []), p.team])]; } delete out.team; return out; });
   d.notes = d.notes || []; d.followups = d.followups || [];
   return d;
 }
@@ -550,7 +559,11 @@ function picker(root, path, listKey, multi) {
 }
 function redrawPicker(pk) { const html = picker(pk.dataset.root, pk.dataset.picker, pk.dataset.list, pk.dataset.multi === '1'); pk.outerHTML = html; }
 function findPicker(root, path) { return [...document.querySelectorAll('[data-picker]')].find(el => el.dataset.root === root && el.dataset.picker === path); }
+const showOcc = labels => !labels.includes('Work');
+const showParents = labels => !labels.includes('Family') && (!labels.includes('Work') || labels.includes('Friend'));
+function applyRules() { document.querySelectorAll('[data-rule]').forEach(s => { s.hidden = !(s.dataset.rule === 'occ' ? showOcc(S.form.labels) : showParents(S.form.labels)); }); }
 function onPicked(root, path) {
+  if (root === 'form' && path === 'labels') applyRules();
   if (root === 'form' && path.startsWith('teams.')) refreshTeams();
   if (root === 'form' && path === 'labels') document.querySelectorAll('[data-sec]').forEach(s => { s.hidden = !S.form.labels.includes(s.dataset.sec); });
 }
@@ -577,7 +590,7 @@ function snippet(text, q) { const i = text.toLowerCase().indexOf(q); const s = M
 function searchPeople(q) {
   const out = [];
   for (const p of S.data.people) {
-    const fields = [['', p.name], ['Goes by', p.nickname], ['Partner', p.partner], ...p.kids.map(k => ['Kid', k.name]), ...p.pets.map(x => ['Pet', [x.name, x.type && `(${x.type})`].filter(Boolean).join(' ')]), ...p.interests.map(i => ['Interest', i]), ...teamList(p).map(t => ['Team', `${t.team} (${t.sport})`]), ['Company', p.work.company], ['Role', p.work.role], ['How you met', p.howMet], ['Favourites', p.favourites], ...p.lifeUpdates.map(l => ['Update', l.text]), ['Label', p.labels.join(' ')], ['Family', p.family.relation], ['Working on', p.industry.workingOn], ['Where', p.local.where], ['Coffee', p.coffee.choice], ['Mindful of', p.mindful]];
+    const fields = [['', p.name], ['Goes by', p.nickname], ['Partner', p.partner], ...p.kids.map(k => ['Kid', k.name]), ...p.parents.map(x => ['Parent', x.name]), ['Works', p.occupation.job], ['Works at', p.occupation.workplace], ['Studied', [p.occupation.course, p.occupation.studied].filter(Boolean).join(', ')], ['Industry', p.occupation.industry], ...p.pets.map(x => ['Pet', [x.name, x.type && `(${x.type})`].filter(Boolean).join(' ')]), ...p.interests.map(i => ['Interest', i]), ...teamList(p).map(t => ['Team', `${t.team} (${t.sport})`]), ['Company', p.work.company], ['Role', p.work.role], ['How you met', p.howMet], ['Favourites', p.favourites], ...p.lifeUpdates.map(l => ['Update', l.text]), ['Label', p.labels.join(' ')], ['Family', p.family.relation], ['Working on', p.industry.workingOn], ['Where', p.local.where], ['Coffee', p.coffee.choice], ['Mindful of', p.mindful]];
     let hit = null;
     for (const [k, v] of fields) if (v && String(v).toLowerCase().includes(q)) { hit = [k, String(v)]; break; }
     if (!hit) { const n = S.data.notes.find(n => n.personIds.includes(p.id) && n.text.toLowerCase().includes(q)); if (n) hit = ['Note', snippet(n.text, q)]; }
@@ -697,8 +710,9 @@ V.person = () => {
   const kids = p.kids.filter(k => k.name).map(k => { const a = kidAge(k.year); return esc(k.name) + (a !== null ? `, ${a}` : ''); }).join(' · ');
   const pets = p.pets.filter(x => x.name || x.type).map(x => esc(x.name ? `${x.name}${x.type ? ` (${x.type.toLowerCase()})` : ''}` : x.type)).join(' · ');
   const bdayV = p.birthday ? `${esc(bdayText(p.birthday))}${nb ? ` <span style="color:var(--muted)">· ${nb.days === 0 ? 'today!' : relDay(nb.days).toLowerCase()}${nb.turning ? `, turning ${nb.turning}` : ''}</span>` : ''}` : '';
-  h += cardOf('About', fact('cake', 'Birthday', bdayV) + fact('users', 'How you met', esc(p.howMet)) + fact('heart', 'Partner', esc(p.partner)) + fact('kid', 'Kids', kids) + fact('paw', 'Pets', pets) + fact('star', 'Interests', chipsOf(p.interests)) + fact('trophy', teamList(p).length > 1 ? 'Teams' : 'Team', chipsOf(teamList(p).map(t => t.sport === 'Other' ? t.team : `${t.team} · ${t.sport}`))) + fact('coffee', 'Coffee', withNote(p.coffee.choice, p.coffee.note)) + fact('food', 'Dietary', (p.dietary.choices.length || p.dietary.note) ? chipsOf(p.dietary.choices) + (p.dietary.note ? `<span style="display:block;margin-top:4px">${esc(p.dietary.note)}</span>` : '') : '') + fact('gift', 'Favourite things', esc(p.favourites)));
+  h += cardOf('About', fact('cake', 'Birthday', bdayV) + fact('users', 'How you met', esc(p.howMet)) + fact('heart', 'Partner', esc(p.partner)) + fact('family', 'Parents', p.parents.filter(x => x.name).map(x => esc(x.name) + (x.rel ? ` (${esc(x.rel.toLowerCase())})` : '')).join(' · ')) + fact('kid', 'Kids', kids) + fact('paw', 'Pets', pets) + fact('star', 'Interests', chipsOf(p.interests)) + fact('trophy', teamList(p).length > 1 ? 'Teams' : 'Team', chipsOf(teamList(p).map(t => t.sport === 'Other' ? t.team : `${t.team} · ${t.sport}`))) + fact('coffee', 'Coffee', withNote(p.coffee.choice, p.coffee.note)) + fact('food', 'Dietary', (p.dietary.choices.length || p.dietary.note) ? chipsOf(p.dietary.choices) + (p.dietary.note ? `<span style="display:block;margin-top:4px">${esc(p.dietary.note)}</span>` : '') : '') + fact('gift', 'Favourite things', esc(p.favourites)));
   if (p.lifeUpdates.length) h += `<div class="sec"><h2>Life updates</h2></div><div class="card facts">${[...p.lifeUpdates].sort((a, b) => (b.date || '').localeCompare(a.date || '')).map(l => fact('sparkle', l.date ? fmtDate(l.date) : 'Update', esc(l.text))).join('')}</div>`;
+  if (showOcc(p.labels)) { const o = p.occupation; h += cardOf('Occupation', fact('work', 'What they do', esc(o.job && o.workplace ? `${o.job} at ${o.workplace}` : (o.job || o.workplace))) + fact('tag', 'Industry', esc(o.industry)) + fact('book', 'Studied', esc(o.course && o.studied ? `${o.course} at ${o.studied}` : (o.course || o.studied)))); }
   if (p.labels.includes('Work')) { const w = p.work; h += cardOf('Work', fact('work', 'Company', esc(w.company)) + fact('tag', 'Role', esc([w.role, w.team && `${w.team} team`].filter(Boolean).join(' · '))) + fact('users', 'Relationship', esc([w.relType, w.seniority].filter(Boolean).join(' · '))) + fact('chat', 'Best way to reach them', esc(w.contact)) + fact('list', 'Projects together', esc(w.projects)) + fact('sparkle', 'How they like to work', (w.style.length || w.styleNote) ? chipsOf(w.style) + (w.styleNote ? `<span style="display:block;margin-top:4px">${esc(w.styleNote)}</span>` : '') : '')); }
   if (p.labels.includes('Family')) h += cardOf('Family', fact('family', 'Related as', esc(p.family.relation)));
   if (p.labels.includes('Industry')) { const x = p.industry; h += cardOf('Industry', fact('pin', 'Where you met', esc(x.whereMet)) + fact('work', 'Working on', esc(x.workingOn)) + fact('heart', 'How you might help each other', esc(x.help))); }
@@ -716,11 +730,12 @@ function rowsHTML(k) {
   if (k === 'kids') return f.kids.map((x, i) => `<div class="rowin"><input type="text" placeholder="Name" aria-label="Kid's name" data-root="form" data-bind="kids.${i}.name" value="${esc(x.name)}"><input type="number" class="yr" inputmode="numeric" placeholder="Birth year" aria-label="Birth year" min="1900" max="${new Date().getFullYear()}" data-root="form" data-bind="kids.${i}.year" value="${esc(x.year ?? '')}"><button type="button" class="rm" data-act="rmrow" data-k="kids" data-i="${i}" aria-label="Remove">${ic('x')}</button></div>`).join('');
   if (k === 'pets') return f.pets.map((x, i) => `<div class="subcard"><div class="rowin"><input type="text" placeholder="Pet's name" aria-label="Pet's name" data-root="form" data-bind="pets.${i}.name" value="${esc(x.name)}"><button type="button" class="rm" data-act="rmrow" data-k="pets" data-i="${i}" aria-label="Remove">${ic('x')}</button></div>${picker('form', `pets.${i}.type`, 'pets', false)}</div>`).join('');
   if (k === 'connections') { const others = S.data.people.filter(o => o.id !== f.id).sort((a, b) => a.name.localeCompare(b.name)); return f.connections.map((x, i) => `<div class="subcard"><div class="rowin"><select aria-label="Linked person" data-root="form" data-bind="connections.${i}.id"><option value="">Choose a person…</option>${others.map(o => `<option value="${o.id}" ${o.id === x.id ? 'selected' : ''}>${esc(o.name)}</option>`).join('')}</select><button type="button" class="rm" data-act="rmrow" data-k="connections" data-i="${i}" aria-label="Remove">${ic('x')}</button></div>${picker('form', `connections.${i}.how`, 'connectionHow', false)}</div>`).join(''); }
+  if (k === 'parents') return f.parents.map((x, i) => `<div class="rowin"><input type="text" placeholder="Name" aria-label="Parent's name" data-root="form" data-bind="parents.${i}.name" value="${esc(x.name)}"><select class="yr" aria-label="Mum or dad" data-root="form" data-bind="parents.${i}.rel"><option value="">–</option>${S.data.lists.parentRel.map(r => `<option ${x.rel === r ? 'selected' : ''}>${esc(r)}</option>`).join('')}</select><button type="button" class="rm" data-act="rmrow" data-k="parents" data-i="${i}" aria-label="Remove">${ic('x')}</button></div>`).join('');
   if (k === 'lifeUpdates') return f.lifeUpdates.map((x, i) => `<div class="rowin"><input type="text" placeholder="New job, moved house, trip coming up…" aria-label="Life update" data-root="form" data-bind="lifeUpdates.${i}.text" value="${esc(x.text)}"><button type="button" class="rm" data-act="rmrow" data-k="lifeUpdates" data-i="${i}" aria-label="Remove">${ic('x')}</button></div>`).join('');
   return '';
 }
-const blankRow = { kids: () => ({ name: '', year: '' }), pets: () => ({ type: '', name: '' }), connections: () => ({ id: '', how: '' }), lifeUpdates: () => ({ text: '', date: '' }) };
-const addLabel = { kids: 'Add a kid', pets: 'Add a pet', connections: 'Link someone', lifeUpdates: 'Add an update' };
+const blankRow = { parents: () => ({ name: '', rel: '' }), kids: () => ({ name: '', year: '' }), pets: () => ({ type: '', name: '' }), connections: () => ({ id: '', how: '' }), lifeUpdates: () => ({ text: '', date: '' }) };
+const addLabel = { parents: 'Add a parent', kids: 'Add a kid', pets: 'Add a pet', connections: 'Link someone', lifeUpdates: 'Add an update' };
 const rowsBlock = k => `<div id="rows-${k}" class="form" style="gap:10px">${rowsHTML(k)}</div><button type="button" class="addrow" data-act="addrow" data-k="${k}">${ic('plus')}${addLabel[k]}</button>`;
 const tf = (id, label, path, ph = '', extra = '') => `<div class="field"><label for="${id}">${label}</label><input type="text" id="${id}" data-root="form" data-bind="${path}" value="${esc(getP(S.form, path))}" placeholder="${esc(ph)}" ${extra}></div>`;
 const ta = (id, label, path, ph = '') => `<div class="field"><label for="${id}">${label}</label><textarea id="${id}" data-root="form" data-bind="${path}" placeholder="${esc(ph)}" style="min-height:80px">${esc(getP(S.form, path))}</textarea></div>`;
@@ -744,10 +759,11 @@ V.edit = () => {
     <div class="field"><label for="e-bm">Month</label><select id="e-bm" data-root="form" data-bind="bd.m"><option value="">–</option>${MONTHS_FULL.map((m, i) => `<option value="${i + 1}" ${String(f.bd.m) === String(i + 1) ? 'selected' : ''}>${m}</option>`).join('')}</select></div>
     <div class="field"><label for="e-by">Year</label><input type="number" id="e-by" inputmode="numeric" placeholder="Optional" min="1900" max="${new Date().getFullYear()}" data-root="form" data-bind="bd.y" value="${esc(f.bd.y)}"></div></div></div>
   <div class="group"><h3>${ic('link')}How you're connected</h3>${tf('e-met', 'How you met', 'howMet', 'Uni, a mutual friend, first day at work…')}<div class="field"><span class="lbl">Linked people</span><span class="hint">Like a cousin's partner, or a colleague's husband who's also in your book.</span>${rowsBlock('connections')}</div></div>
-  <div class="group"><h3>${ic('heart')}Their people</h3>${tf('e-partner', 'Partner', 'partner', 'Name')}<div class="field"><span class="lbl">Kids</span><span class="hint">Add a birth year and their age updates itself.</span>${rowsBlock('kids')}</div><div class="field"><span class="lbl">Pets</span>${rowsBlock('pets')}</div></div>
+  <div class="group"><h3>${ic('heart')}Their people</h3>${tf('e-partner', 'Partner', 'partner', 'Name')}<div class="field" data-rule="parents" ${showParents(f.labels) ? '' : 'hidden'}><span class="lbl">Parents</span>${rowsBlock('parents')}</div><div class="field"><span class="lbl">Kids</span><span class="hint">Add a birth year and their age updates itself.</span>${rowsBlock('kids')}</div><div class="field"><span class="lbl">Pets</span>${rowsBlock('pets')}</div></div>
   <div class="group"><h3>${ic('star')}What they're into</h3>${pk('Interests', 'interests', 'interests', true)}${teamField()}</div>
   <div class="group"><h3>${ic('coffee')}Handy details</h3>${pk('Coffee order', 'coffee.choice', 'coffee', false)}${tf('e-coffee', 'Coffee note', 'coffee.note', 'Extra hot, half sugar…')}${pk('Dietary', 'dietary.choices', 'dietary', true)}${tf('e-diet', 'Dietary note', 'dietary.note', 'How strict, any allergies…')}${ta('e-fav', 'Favourite things', 'favourites', 'Flowers, wine, snacks, shows…')}</div>
   <div class="group"><h3>${ic('sparkle')}Life updates</h3><span class="hint" style="margin-top:-8px">Big things going on. New ones are dated today.</span>${rowsBlock('lifeUpdates')}${ta('e-mind', 'Things to be mindful of', 'mindful', 'Topics to avoid or approach gently')}</div>
+  <div class="group" data-rule="occ" ${showOcc(f.labels) ? '' : 'hidden'}><h3>${ic('work')}Occupation</h3><div class="pair">${tf('e-job', 'What they do', 'occupation.job', 'Nurse, teacher…')}${tf('e-wp', 'Where they work', 'occupation.workplace', 'Workplace')}</div>${pk('Industry', 'occupation.industry', 'industries', false)}${pk('Where they studied', 'occupation.studied', 'unis', false)}${tf('e-course', 'What they studied', 'occupation.course', 'Course or degree')}</div>
   <div class="group" data-sec="Work" ${sec('Work')}><h3>${ic('work')}Work</h3>${pk('Company', 'work.company', 'companies', false)}<div class="pair">${tf('e-role', 'Role', 'work.role', 'Their job title')}${tf('e-team', 'Team', 'work.team', 'Team or department')}</div>${pk('Relationship', 'work.relType', 'relType', false)}${pk('Seniority', 'work.seniority', 'seniority', false)}${pk('Best way to reach them', 'work.contact', 'contact', false)}${tf('e-proj', 'Projects together', 'work.projects', 'What you have worked on')}${pk('How they like to work', 'work.style', 'workStyle', true)}${tf('e-style', 'Working style note', 'work.styleNote')}</div>
   <div class="group" data-sec="Family" ${sec('Family')}><h3>${ic('family')}Family</h3>${pk('How they are related to you', 'family.relation', 'familyRelation', false)}</div>
   <div class="group" data-sec="Industry" ${sec('Industry')}><h3>${ic('users')}Industry</h3>${pk('Where you met', 'industry.whereMet', 'whereMet', false)}${tf('e-wo', 'What they are working on', 'industry.workingOn')}${tf('e-help', 'How you might help each other', 'industry.help')}</div>
@@ -782,11 +798,87 @@ function fuBlock() {
 }
 function dueFrom(f) { const base = todayISO(); if (f.fu === 'tomorrow') return addDays(base, 1); if (f.fu === 'week') return addDays(base, 7); if (f.fu === 'month') return addMonths(base, 1); if (f.fu === 'pick') return f.fuDate || ''; return ''; }
 
+/* ---------- time hints ---------- */
+const NUMW = { a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, couple: 2, few: 3 };
+const WDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+const MONTHW = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+const NUM = '(\\d+|a couple of|a few|an|a|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)';
+const UNIT = '(days|day|weeks|week|fortnights|fortnight|months|month)';
+function numOf(w) { w = w.replace(/^a (couple|few)( of)?$/, '$1'); return /^\d+$/.test(w) ? Number(w) : (NUMW[w] || 0); }
+function plus(base, n, u) { if (u.startsWith('day')) return addDays(base, n); if (u.startsWith('fortnight')) return addDays(base, 14 * n); if (u.startsWith('week')) return addDays(base, 7 * n); return addMonths(base, n); }
+function mondayOf(iso) { const d = parseIso(iso); const dow = (d.getDay() + 6) % 7; return addDays(iso, -dow); }
+function nextWeekday(base, name, forceNext) { const want = WDAYS.indexOf(name); const d = parseIso(base); let diff = (want - d.getDay() + 7) % 7; if (diff === 0) diff = 7; return addDays(base, diff); }
+function startPoint(base, phrase) {
+  if (!phrase) return base;
+  const p = phrase.toLowerCase().trim();
+  if (p === 'today' || p === 'now') return base;
+  if (p === 'tomorrow') return addDays(base, 1);
+  if (p === 'this week') return mondayOf(base);
+  if (p === 'next week') return addDays(mondayOf(base), 7);
+  const wd = p.match(/^(?:this |next |last )?(sunday|monday|tuesday|wednesday|thursday|friday|saturday)$/);
+  if (wd) { if (p.startsWith('last')) { const n = nextWeekday(base, wd[1]); return addDays(n, -7); } return nextWeekday(base, wd[1]); }
+  const dt = dateFrom(base, p); return dt || base;
+}
+function dateFrom(base, t) {
+  let m = t.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+(?:of\s+)?(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\b/i) || null;
+  let day, mon;
+  if (m) { day = +m[1]; mon = MONTHW.indexOf(m[2].toLowerCase().slice(0, 3)); }
+  else { m = t.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{1,2})(?:st|nd|rd|th)?\b/i); if (m) { day = +m[2]; mon = MONTHW.indexOf(m[1].toLowerCase().slice(0, 3)); } }
+  if (!m) { m = t.match(/\b(\d{1,2})\/(\d{1,2})(?:\/\d{2,4})?\b/); if (m) { day = +m[1]; mon = +m[2] - 1; } }
+  if (!m || mon < 0 || mon > 11 || day < 1 || day > 31) return null;
+  const b = parseIso(base); let y = b.getFullYear(); let d = new Date(y, mon, Math.min(day, new Date(y, mon + 1, 0).getDate()));
+  if (isoOf(d) < base) d = new Date(y + 1, mon, Math.min(day, new Date(y + 1, mon + 1, 0).getDate()));
+  return isoOf(d);
+}
+function timeHint(text, base) {
+  const t = ' ' + String(text || '').toLowerCase().replace(/[’']/g, "'").replace(/\s+/g, ' ') + ' ';
+  let m;
+  // "this week was the first of 3 weeks"
+  m = t.match(new RegExp('(this|last|next) week (?:was|is|will be) (?:the )?first (?:week )?of ' + NUM + ' ' + UNIT));
+  if (m) { const start = startPoint(base, m[1] + ' week'); const n = numOf(m[2]); if (n) return { date: plus(start, n, m[3]), phrase: m[0].trim() }; }
+  // "for 3 weeks from Monday" / "for 3 weeks starting tomorrow"
+  m = t.match(new RegExp('for ' + NUM + ' ' + UNIT + '(?: (?:from|starting|starting from|beginning) (today|tomorrow|this week|next week|(?:this |next |last )?(?:sunday|monday|tuesday|wednesday|thursday|friday|saturday)|\\d{1,2}(?:st|nd|rd|th)? (?:of )?[a-z]{3,9}|[a-z]{3,9} \\d{1,2}|\\d{1,2}/\\d{1,2}))?'));
+  if (m && !/ ago/.test(t.slice(t.indexOf(m[0]) + m[0].length, t.indexOf(m[0]) + m[0].length + 5))) { const n = numOf(m[1]); if (n) return { date: plus(startPoint(base, m[3]), n, m[2]), phrase: m[0].trim() }; }
+  // "in 2 weeks" / "2 weeks from now"
+  m = t.match(new RegExp('(?:in|within) ' + NUM + ' ' + UNIT + '(?!\\s*ago)')) || t.match(new RegExp(NUM + ' ' + UNIT + " (?:from now|time|from today)"));
+  if (m) { const n = numOf(m[1]); if (n) return { date: plus(base, n, m[2]), phrase: m[0].trim() }; }
+  // a date
+  const dt = dateFrom(base, t); if (dt) { const MON = '(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*'; const mm = t.match(new RegExp('\\b\\d{1,2}(?:st|nd|rd|th)?\\s+(?:of\\s+)?' + MON + '\\b|\\b' + MON + '\\s+\\d{1,2}(?:st|nd|rd|th)?\\b|\\b\\d{1,2}/\\d{1,2}(?:/\\d{2,4})?\\b')); return { date: dt, phrase: mm ? mm[0].trim() : '' }; }
+  // end of the week / month / year
+  m = t.match(/end of (?:the |this )?(week|month|year)/);
+  if (m) { const b = parseIso(base); let d; if (m[1] === 'week') d = parseIso(addDays(mondayOf(base), 4)); else if (m[1] === 'month') d = new Date(b.getFullYear(), b.getMonth() + 1, 0); else d = new Date(b.getFullYear(), 11, 31); const iso = isoOf(d); return { date: iso > base ? iso : addDays(base, 1), phrase: m[0].trim() }; }
+  // next / this weekday
+  m = t.match(/\b(next|this|on) (sunday|monday|tuesday|wednesday|thursday|friday|saturday)\b/);
+  if (m) { let date = nextWeekday(base, m[2]); if (m[1] === 'next' && date < addDays(mondayOf(base), 7)) date = addDays(date, 7); return { date, phrase: m[0].trim() }; }
+  m = t.match(/\b(tomorrow|next week|next month|next fortnight)\b/);
+  if (m) { const k = m[1]; const date = k === 'tomorrow' ? addDays(base, 1) : k === 'next week' ? addDays(base, 7) : k === 'next fortnight' ? addDays(base, 14) : addMonths(base, 1); return { date, phrase: k }; }
+  return null;
+}
+function suggestFuText(text) {
+  const t = String(text || '').toLowerCase();
+  if (/\b(trip|holiday|leave|travel|travelling|traveling|overseas|away|honeymoon|vacation)\b/.test(t)) return 'Ask how the trip was';
+  if (/\binterview/.test(t)) return 'Ask how the interview went';
+  if (/\b(surgery|operation|hospital|procedure)\b/.test(t)) return 'Check in on how they are going';
+  if (/\b(exam|exams|test|results)\b/.test(t)) return 'Ask how it went';
+  if (/\b(move|moving|new house|settlement)\b/.test(t)) return 'Ask how the move went';
+  if (/\b(new job|starts|starting)\b/.test(t)) return 'Ask how the new job is going';
+  return '';
+}
+function hintHTML() {
+  const f = S.nf; if (!f) return '';
+  const h = timeHint(f.text, todayISO()); if (!h || h.date <= todayISO()) return '';
+  const already = f.fu !== 'none' && dueFrom(f) === h.date;
+  const n = daysFromToday(h.date); const d = parseIso(h.date);
+  const when = `${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getDay()]} ${fmtDate(h.date)}`;
+  if (already) return `<div class="hintcard done">${ic('check')}<span>Follow-up set for ${esc(when)}</span></div>`;
+  return `<div class="hintcard">${ic('calendar')}<span class="grow"><b>Sounds like ${esc(when)}</b><span>${esc(relDay(n))}, from "${esc(h.phrase)}"</span></span><button type="button" data-act="usehint" data-date="${h.date}">Set reminder</button></div>`;
+}
+function refreshHint() { const el = $('#hint'); if (el) el.innerHTML = hintHTML(); }
 V.note = () => { const f = S.nf; return `${topBar(f.id ? 'Edit note' : 'New note', { back: true })}
   <form class="form" data-form="note" novalidate>
   <div class="group"><span class="lbl">Who you spoke with</span><div class="chips" id="whosel">${whoSel()}</div><input type="search" id="nfsearch" placeholder="Search your people" autocomplete="off" aria-label="Search people" value="${esc(S.nfq)}"><div id="whosug">${whoSug()}</div></div>
   <div class="group"><div class="field"><span class="lbl">Where</span>${picker('nf', 'place', 'places', false)}</div><div class="field"><label for="n-date">When</label><input type="date" id="n-date" data-root="nf" data-bind="date" value="${esc(f.date)}" max="${todayISO()}"></div></div>
-  <div class="group"><div class="field"><label for="n-text">What you talked about</label><textarea id="n-text" data-root="nf" data-bind="text" placeholder="Kids, plans, news, anything worth remembering">${esc(f.text)}</textarea><span class="hint">Tip: tap the microphone on your keyboard to speak it instead.</span></div></div>
+  <div class="group"><div class="field"><label for="n-text">What you talked about</label><textarea id="n-text" data-root="nf" data-bind="text" placeholder="Kids, plans, news, anything worth remembering">${esc(f.text)}</textarea><span class="hint">Tip: tap the microphone on your keyboard to speak it instead. Mention a time, like "away for 3 weeks" or "back on 14 Nov", and you'll be offered a reminder.</span><div id="hint">${hintHTML()}</div></div></div>
   <div class="group"><span class="lbl">Follow-up</span><div id="fublock" class="form" style="gap:12px">${fuBlock()}</div></div>
   ${f.id ? `<div class="group">${S.editConfirm ? `<div class="confirm">Delete this note and its follow-up?<div class="btns"><button type="button" class="btn danger" data-act="delnote">Delete</button><button type="button" class="btn ghost" data-act="canceldel">Keep</button></div></div>` : `<button type="button" class="btn danger" data-act="askdel">${ic('trash')}Delete note</button>`}</div>` : ''}
   <p class="err" id="n-err" hidden></p>
@@ -955,7 +1047,8 @@ const A = {
   editnote: el => { const n = S.data.notes.find(x => x.id === el.dataset.id); if (!n) return; const fu = S.data.followups.find(x => x.noteId === n.id && !x.done); go('note', { nf: { id: n.id, personIds: [...n.personIds], place: n.place, date: n.date, text: n.text, fu: fu ? 'pick' : 'none', fuDate: fu ? fu.due : '', fuText: fu ? fu.text : '', fuFor: fu && fu.personIds.length === 1 && n.personIds.length > 1 ? fu.personIds[0] : 'all' }, nfq: '', adding: null, editConfirm: false }); },
   nfadd: el => { S.nf.personIds.push(el.dataset.id); S.nfq = ''; const s = $('#nfsearch'); if (s) s.value = ''; refreshWho(); },
   nfrm: el => { S.nf.personIds = S.nf.personIds.filter(x => x !== el.dataset.id); if (S.nf.fuFor === el.dataset.id) S.nf.fuFor = 'all'; refreshWho(); },
-  fuq: el => { S.nf.fu = el.dataset.val; if (S.nf.fu === 'pick' && !S.nf.fuDate) S.nf.fuDate = addDays(todayISO(), 7); $('#fublock').innerHTML = fuBlock(); },
+  usehint: el => { S.nf.fu = 'pick'; S.nf.fuDate = el.dataset.date; if (!S.nf.fuText.trim()) S.nf.fuText = suggestFuText(S.nf.text); $('#fublock').innerHTML = fuBlock(); refreshHint(); toast('Reminder added below. Change the words if you like.'); const fb = $('#fublock'); fb && fb.scrollIntoView({ behavior: 'smooth', block: 'center' }); },
+  fuq: el => { S.nf.fu = el.dataset.val; if (S.nf.fu === 'pick' && !S.nf.fuDate) S.nf.fuDate = addDays(todayISO(), 7); $('#fublock').innerHTML = fuBlock(); refreshHint(); },
   fufor: el => { S.nf.fuFor = el.dataset.val; $('#fublock').innerHTML = fuBlock(); },
   delnote: async () => { const id = S.nf.id; S.data.notes = S.data.notes.filter(n => n.id !== id); S.data.followups = S.data.followups.filter(f => f.noteId !== id); await persist(); S.editConfirm = false; toast('Note deleted'); backAction(); },
 
@@ -1071,6 +1164,7 @@ const FORMS = {
     p.kids = p.kids.filter(k => k.name.trim()).map(k => ({ name: k.name.trim(), year: k.year ? Number(k.year) : '' }));
     p.pets = p.pets.filter(x => x.name.trim() || x.type).map(x => ({ name: x.name.trim(), type: x.type }));
     p.connections = p.connections.filter(c => c.id);
+    p.parents = p.parents.filter(x => x.name.trim()).map(x => ({ name: x.name.trim(), rel: x.rel || '' }));
     for (const sp of Object.keys(p.teams || {})) if (!p.teams[sp] || !p.teams[sp].length) delete p.teams[sp];
     p.lifeUpdates = p.lifeUpdates.filter(l => l.text.trim()).map(l => ({ text: l.text.trim(), date: l.date || todayISO() }));
     p.updated = Date.now();
@@ -1130,6 +1224,7 @@ document.addEventListener('input', e => {
   const el = e.target;
   if (el.dataset.bind) { const root = ROOTS[el.dataset.root] && ROOTS[el.dataset.root](); if (root) setP(root, el.dataset.bind, el.type === 'checkbox' ? el.checked : el.value); if (el.dataset.root === 'form' && el.dataset.bind === 'name' && !S.form.photo) { const pb = $('#photobox .avatar'); if (pb) pb.innerHTML = el.value ? initials(el.value) : ic('camera'); } }
   if (el.id === 'q') { S.q = el.value; $('#homebody').innerHTML = homeBody(); }
+  if (el.dataset.root === 'nf' && (el.dataset.bind === 'text' || el.dataset.bind === 'fuDate')) { clearTimeout(S.hintT); S.hintT = setTimeout(refreshHint, 250); }
   if (el.id === 'nfsearch') { S.nfq = el.value; $('#whosug').innerHTML = whoSug(); }
 });
 document.addEventListener('keydown', e => {
